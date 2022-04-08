@@ -53,6 +53,7 @@ class Plugin extends PluginBase
         return [
             'Gadimliestudio\Forms\Components\MainContactForm' => 'mainContactForm',
             'Gadimliestudio\Forms\Components\Subscriptionform' => 'Subscriptionform',
+            'Gadimliestudio\Forms\Components\Eventregform' => 'Eventregform',
 
 
         ];
