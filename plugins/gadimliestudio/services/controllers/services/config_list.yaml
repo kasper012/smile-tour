@@ -1,0 +1,49 @@
+    # ===================================
+#  List Behavior Config
+# ===================================
+
+# Model List Column configuration
+list: $/gadimliestudio/services/models/service/columns.yaml
+
+# Model Class name
+modelClass: Gadimliestudio\Services\Models\Service
+
+# List Title
+title: Xidmətlərin idarə etməsi
+
+# Link URL for each record
+recordUrl: gadimliestudio/services/services/update/:id
+
+# Message to display if the list is empty
+noRecordsMessage: Xidmət yoxdur
+
+# Records to display per page
+recordsPerPage: 20
+
+# Display page numbers with pagination, disable to improve performance
+showPageNumbers: true
+
+# Displays the list column set up button
+showSetup: true
+
+# Displays the sorting link on each column
+showSorting: true
+
+# Default sorting column
+# defaultSort:
+#     column: created_at
+#     direction: desc
+
+# Display checkboxes next to each record
+showCheckboxes: true
+
+# Toolbar widget configuration
+toolbar:
+    # Partial for toolbar buttons
+    buttons: list_toolbar
+
+    # Search widget configuration
+    search:
+        prompt: Axtar
+
+

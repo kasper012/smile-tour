@@ -1,0 +1,36 @@
+fields:
+    id:
+        label: ID
+        disabled: true
+        hidden: true
+
+    title:
+        label: Ölkənin adı
+        span: auto
+        required: true
+        span: storm
+        cssClass: col-md-6
+        
+
+    image:
+        label: Bayraq şəkili
+        type: mediafinder
+        span: storm
+        cssClass: col-md-6
+        
+    
+    excerpt:
+        label: Qısa məlumat
+        span: storm
+        type: richeditor
+        cssClass: col-md-4
+        
+        
+    description:
+        label: Ölkə haqqında məlumat
+        type: richeditor
+        required: true
+        span: storm
+        cssClass: col-md-8
+        
+

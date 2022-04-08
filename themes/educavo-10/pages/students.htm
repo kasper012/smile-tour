@@ -1,0 +1,46 @@
+title = "Наши студенты"
+url = "/nashi-studenti"
+layout = "default"
+is_hidden = 0
+
+[viewBag]
+localeTitle[en] = "Students"
+localeUrl[en] = "/students/"
+==
+{% partial 'nav/breadcrumb' 
+   title = ( 'Tələbələrimiz' | _ ) 
+	links =  [
+               { 'title': ( 'Tələbələrimiz' | _ ) }
+			   ]
+   %}
+   
+   <div id="rs-categories" class="rs-categories home9-style event-bg pt-100 pb-100 md-pt-70 md-pb-70" style="background-color: white !important;">
+      <div class="container">
+          <div class="sec-title3 text-center mb-45">
+             </div>
+        <div class="row">
+           {% for student in students %}
+           <div class="col-12 col-lg-6 my-3 students-page">
+              <div class="testi-item">
+                 <div class="row y-middle no-gutter">
+                    <div class="col-md-5 mr-4 d-flex align-self-start" >
+                       <div class="user-info">
+                          <img src="{{ student.profile_img  | media }}"class="mt-2" alt="">
+                          <h4 class="name text-center mb-0">{{ student.name }}</h4>
+                       </div>
+                    </div>
+                    <div class="col-md-6 student-info">
+                       <div class="desc">
+                          {{ student.info | raw }}
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+           {% endfor %}
+        </div>
+     </div>
+  </div>
+<!-- Newsletter section start -->
+{% partial 'subscribe' %}
+<!-- Newsletter section end -->

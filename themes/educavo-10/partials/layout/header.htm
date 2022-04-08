@@ -1,0 +1,53 @@
+[viewBag]
+==
+<!--Full width header Start-->
+<div class="full-width-header home8-style4 home9">
+  <!--Header Start-->
+  <header id="rs-header" class="rs-header">
+    <!-- Menu Start -->
+
+    <div class="menu-area menu-sticky">
+      <div class="container">
+        <div class="row y-middle">
+          <div class="col-lg-2">
+            <div class="logo-cat-wrap">
+              <div class="logo-part">
+                <a href="{{ 'home'| page }}">
+                  <img class="normal-logo" src="{{ 'assets/images/edu-support_white_white_small1.png'| theme}}" alt="">
+                  <img class="sticky-logo" src="{{ 'assets/images/edu_logo.png'| theme}}" alt="">
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-9 text-right">
+            <div class="rs-menu-area">
+              <div class="main-menu">
+                <div class="mobile-menu">
+                  <a class="rs-menu-toggle">
+                    <i class="fa fa-bars"></i>
+                  </a>
+                </div>
+                {% partial 'nav/main' %}
+              </div> 
+
+            </div>
+          </div>
+          <div class="col-lg-1 text-right">
+            <div class="expand-btn-inner">
+              <nav class="rs-menu">
+                <ul class="nav-menu">
+                      {% component 'extendedLocalePicker' %}
+                </ul>
+              </nav>  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Menu End -->
+
+
+  </header>
+  <!--Header End-->
+</div>
+<!--Full width header End-->

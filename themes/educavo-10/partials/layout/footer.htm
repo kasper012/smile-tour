@@ -1,0 +1,82 @@
+==
+<!-- Footer Start -->
+<footer id="rs-footer" class="rs-footer home9-style">
+  <div class="footer-top">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 col-md-12 col-sm-12 footer-widget md-mb-50">
+          <h3 class="widget-title">{{ 'Bizimlə əlaqə' | _ }}</h3>
+          <ul class="address-widget">
+            {% if company.address %}
+            <li>
+              <i class="flaticon-location"></i>
+              <div class="desc">
+                  {{ company.address }}
+              </div>
+            </li>
+            {% endif %}
+            {% if company.phone %}
+            <li>
+              <i class="flaticon-call"></i>
+              <div class="desc">
+                <a href="tel:{{ company.phone }}">{{ company.phone }}</a>
+              </div>
+            </li>
+            {% endif %}
+            {% if company.email %}
+            <li>
+              <i class="flaticon-email"></i>
+              <div class="desc">
+                <a href="mailto:{{ company.email }}">{{ company.email }}</a>
+              </div>
+            </li>
+            {% endif %}
+            {% if company.work_hours %}
+            <li>
+              <i class="flaticon-clock"></i>
+              <div class="desc">
+                {{ company.work_hours }}
+              </div>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+
+        <div class="col-lg-6 col-md-12 col-sm-12 pl-50 md-pl-15 footer-widget md-mb-50">
+          <h3 class="widget-title">{{ 'Xidmətlər' |_ }}</h3>
+          <ul class="site-map">
+            {% for service in services %}
+            <li><a href="{{ 'service' | page({id:service.id}) }}">{{ service.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="row y-middle">
+        <div class="col-lg-4 md-mb-20">
+          <div class="footer-logo md-text-center">
+            <a href="{{ 'home' | page }}"><img src="{{'assets/images/edu-support_white_white_small1.png'| theme}}" alt=""></a>
+          </div>
+        </div>
+        <div class="col-lg-4 md-mb-20">
+          <div class="copyright text-center md-text-left">
+            <p>
+              &copy; {{ 'now' | date('Y') }} {{'Bütün hüquqlar qorunur'|_}}. <br>
+              {{'Veb-sayt<a href="http://studio.gadimlie.com/"> Gadimlie Studio</a> tərəfindən hazırlanıb.'|_}}</p>
+          </div>
+        </div>
+        <div class="col-lg-4 text-right md-text-left">
+          <ul class="footer-social">
+            {% for social in company.social_media %}
+              <li><a href="{{ social.url }}"><i class="{{ social.icon }}"></i></a></li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- Footer End -->

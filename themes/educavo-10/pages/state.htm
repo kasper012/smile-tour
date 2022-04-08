@@ -1,0 +1,81 @@
+title = "Страны"
+url = "/strani/:id"
+layout = "default"
+is_hidden = 0
+
+[viewBag]
+localeTitle[en] = "Countries"
+localeUrl[en] = "/countries/:id"
+
+[states]
+==
+<?php
+use Gadimliestudio\States\Models\State;
+public function onStart() {
+    $state = State::find($this->param('id'));
+//    $this->page->title = $state->title;
+    $this['state'] = $state;
+}
+?>
+==
+<!-- Breadcrumbs Start -->
+   <div class="rs-breadcrumbs breadcrumbs-overlay">
+      <div class="breadcrumbs-img">
+         <img src="{{ 'assets/images/breadcrumbs/2.jpg' | theme }}" alt="Breadcrumbs Image">
+      </div>
+      <div class="breadcrumbs-text white-color">
+         <h1 class="page-title">{{ state.title }}</h1>
+         <ul>
+            <li>
+               <a class="active" href="{{ 'home' | page }}">{{ 'Əsas səhifə' |_ }}</a>
+            </li>
+            <li> <a class="active" href="{{ 'services' | page }}">{{ 'Xidmətlər' |_ }}</a></li>
+         </ul>
+      </div>
+</div>
+<!-- Breadcrumbs End --> 
+<!-- Blog Section Start -->
+<div class="rs-inner-blog orange-color pt-100 pb-100 md-pt-70 md-pb-70">
+   <div class="container">
+      <div >
+      <div class="pr-50 md-pr-15">
+         <div class="blog-deatails row">
+            <div class="bs-img col-5 mt-100">
+               <img src="{{ state.image | media }}" alt="">
+            </div>
+            <div class="blog-full col-6">
+               <div class="blog-desc">
+                  <h3 class="title">
+                     {{ state.title }}
+                  </h3>
+                  {{ state.description | raw }}
+               </div>
+            </div>
+         </div>
+      </div>
+      </div>
+   </div>
+</div>
+<!-- Blog Section End -->
+
+<div class="rs-newsletter style1  orange-color mb--90 sm-mb-0 sm-pb-70">
+	<div class="container">
+	   <div class="newsletter-wrap">
+		  <div class="row y-middle">
+				<div class="col-lg-6 col-md-12 md-mb-30">
+				   <div class="content-part">
+					  <div class="sec-title">
+						 <div class="title-icon md-mb-15">
+							   <img src="{{ 'assets/images/newsletter.png' | theme }}" alt="images">
+						 </div>
+						 <h2 class="title mb-0 white-color mt-0">{{ 'Xəbərlərə abunə ol' }}</h2>
+					  </div>
+				   </div>
+				</div>
+				<div class="col-lg-6 col-md-12">
+				   {% component 'Subscriptionform' %}
+				</div>
+		  </div>
+	   </div>
+	</div>
+</div>

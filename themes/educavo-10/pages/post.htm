@@ -1,0 +1,88 @@
+title = "Блог"
+url = "/post/:slug"
+layout = "default"
+is_hidden = 0
+
+[viewBag]
+localeTitle[en] = "Blog post"
+localeUrl[en] = "/post/:slug"
+
+[blogPost]
+slug = "{{ :slug }}"
+categoryPage = "blog"
+
+[blogCategories]
+slug = "{{ :slug }}"
+displayEmpty = 0
+categoryPage = "blog-categories"
+==
+<!-- Breadcrumbs Start -->
+<div class="rs-breadcrumbs breadcrumbs-overlay">
+   <div class="breadcrumbs-img">
+       <img src="{{'assets/images/breadcrumbs/2.jpg'|theme}}" alt="Breadcrumbs Image">
+   </div>
+   <div class="breadcrumbs-text white-color">
+       <h1 class="page-title">{{post.title}}</h1>
+       <ul>
+           <li>
+               <a class="active" href="{{ 'home' | page }}">{{ 'Əsas səhifə' |_ }}</a>
+           </li>
+           <li><a class="active" href="{{ 'blog' | page }}">{{ 'Bloq' |_ }}</a></li>
+       </ul>
+   </div>
+</div>
+<!-- Breadcrumbs End -->
+<!-- Blog Section Start -->
+<div class="rs-inner-blog orange-color pt-100 pb-100 md-pt-70 md-pb-70">
+<div class="container">
+<div class="row">
+  <div class="col-lg-4 col-md-12 order-last">
+     <div class="widget-area">
+        <div class="widget-archives mb-50">
+           <h3 class="widget-title">{{ 'Kateqoriyalar' |_}}</h3>
+           <ul>
+            <a href="#">{% component 'blogCategories' %}</a>
+           </ul>
+        </div>
+
+     </div>
+  </div>
+  <div class="col-lg-8 pr-50 md-pr-15">
+     <div class="blog-deatails">
+        <div class="bs-img d-flex justify-content-center">
+           {% for image in post.featured_images|slice(0,1) %}
+           <img src="{{image.path}}" alt="">
+           {% endfor %}
+        </div>
+        <div class="blog-full">
+           <ul class="single-post-meta">
+              <li>
+                 <span class="p-date"> <i class="fa fa-calendar-check-o"></i> {{ post.created_at| date ('d/m/Y')  }}&nbsp; <i class="fa fa-clock-o"></i>{{   post.created_at | date ('H:i')}}</span>
+              </li>
+              <li>
+                 <span class="p-date"> <i class="fa fa-user-o"></i> {{ post.user.first_name }} {{ post.user.last_name }}</span>
+              </li>
+              {% for category in post.categories  %}
+              <li>
+                <div class="tag-line">
+                  {% if loop.index == 1 %}
+                  <i class="fa fa-book"></i>
+                  {% endif %}         
+                      {{ category.name }}{% if loop.last == 1 %}{% else %}, &nbsp;{% endif %}
+                </div>
+              </li>
+              {% endfor %}
+           </ul>
+           <div class="blog-desc">
+              {{ post.content_html|raw }}
+           </div>
+        </div>
+     </div>
+  </div>
+</div>
+</div>
+</div>
+<!-- Blog Section End -->
+<!-- Newsletter section start -->
+{% partial 'subscribe' %}
+<!-- Newsletter section end -->

@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: State
+
+# Model Form Field configuration
+form: $/gadimliestudio/states/models/state/fields.yaml
+
+# Model Class name
+modelClass: Gadimliestudio\States\Models\State
+
+# Default redirect location
+defaultRedirect: gadimliestudio/states/states
+
+# Create page
+create:
+    title: Yeni Ölkə
+    redirect: gadimliestudio/states/states/update/:id
+    redirectClose: gadimliestudio/states/states
+
+# Update page
+update:
+    title: Ölkəni dəyişmək
+    redirect: gadimliestudio/states/states
+    redirectClose: gadimliestudio/states/states
+
+# Preview page
+preview:
+    title: Ölkəi göstərmək

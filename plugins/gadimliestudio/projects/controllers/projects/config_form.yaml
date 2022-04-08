@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Project
+
+# Model Form Field configuration
+form: $/gadimliestudio/projects/models/project/fields.yaml
+
+# Model Class name
+modelClass: Gadimliestudio\Projects\Models\Project
+
+# Default redirect location
+defaultRedirect: gadimliestudio/projects/projects
+
+# Create page
+create:
+    title: Yeni Layihə
+    redirect: gadimliestudio/projects/projects/update/:id
+    redirectClose: gadimliestudio/projects/projects
+
+# Update page
+update:
+    title: Layihəni dəyişmək
+    redirect: gadimliestudio/projects/projects
+    redirectClose: gadimliestudio/projects/projects
+
+# Preview page
+preview:
+    title: Layihəni göstərmək

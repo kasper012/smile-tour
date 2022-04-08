@@ -1,0 +1,34 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    id:
+        label: ID
+        disabled: true
+        hidden: true
+
+    name:
+        label: Tələbənin adı
+        span: storm
+        cssClass: col-md-6
+        required: true
+   
+    profile_img:
+        label: Tələbənin şəkili
+        type: mediafinder
+        span: storm
+        cssClass: col-md-6
+        required: true
+
+    about:
+        label: Tələbə haqqında qısa məlumat
+        span: storm
+        cssClass: col-md-4
+
+    info:
+        label: Tələbənin rəyi
+        span: storm
+        cssClass: col-md-8
+        type: richeditor        
+

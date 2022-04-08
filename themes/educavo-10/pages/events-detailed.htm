@@ -1,0 +1,107 @@
+title = "Мероприятия"
+url = "/meropriyatiya/:id"
+layout = "default"
+is_hidden = 0
+
+[viewBag]
+localeTitle[en] = "Events"
+localeUrl[en] = "/events/:id"
+==
+<?php
+use Gadimliestudio\Projects\Models\Project;
+public function onStart() {
+    $project = Project::find($this->param('id'));
+    $this->page->title = $project->title;
+    $this['project'] = $project;
+}
+?>
+==
+<!-- Breadcrumbs Start -->
+   <div class="rs-breadcrumbs breadcrumbs-overlay">
+      <div class="breadcrumbs-img">
+         <img src="{{ 'assets/images/breadcrumbs/2.jpg' | theme }}" alt="Breadcrumbs Image">
+      </div>
+      <div class="breadcrumbs-text white-color">
+         <h1 class="page-title">{{ project.title }}</h1>
+         <ul>
+            <li>
+               <a class="active" href="{{ 'home' | page }}">{{ 'Əsas səhifə' |_ }}</a>
+            </li>
+            <li>{{ 'Tədbirlərimiz' |_}}</li>
+         </ul>
+      </div>
+</div>
+<!-- Breadcrumbs End --> 
+<!-- Blog Section Start -->
+<div class="rs-inner-blog orange-color pt-100 pb-100 md-pt-70 md-pb-70">
+   <div class="container">
+      <div class="row">
+      <div class="col-lg-12 pr-50 md-pr-15">
+         <div class="blog-deatails">
+            <div class="bs-img d-flex w-100">
+               <img src="{{ project.image | media }}" alt="" style="max-width: 600px; margin: 0 auto">
+            </div>
+            <div class="blog-full">
+               <ul class="single-post-meta">
+                  <li>
+                     <span class="p-date"> {{ 'Başlama tarixi' |_ }}: &nbsp;<i class="fa fa-calendar-check-o"></i>{{ project.date_start | date ('d M Y')}} </span>
+                  </li>
+                  <li class="Post-cate">
+                     <div class="tag-line">
+                        <i class="fa fa-clock-o"></i>
+                        {{  project.date_start | date ('H:i')}}
+                     </div>
+                  </li>
+                  <li class="Post-cate">
+                     <div class="tag-line">
+                        <i class="fa fa-map-marker"></i>
+                        {{ project.location }}
+                     </div>
+                  </li>
+
+               </ul>
+               {% if project.date_finish %}
+               <ul class="single-post-meta">
+                  <li>
+                     <span class="p-date"> {{ 'Bitmə tarixi' |_ }}: &nbsp;<i class="fa fa-calendar-check-o"></i>{{ project.date_finish | date ('d M Y')}} </span>
+                  </li>
+                  <li class="Post-cate">
+                     <div class="tag-line">
+                        <i class="fa fa-clock-o"></i>
+                        {{  project.date_finish | date ('H:i')}}
+                     </div>
+                  </li>
+               </ul>
+               {% endif %}
+               <div class="blog-desc">
+                  {{ project.description | raw }}
+               </div>
+            </div>
+         </div>
+      </div>
+      </div>
+   </div>
+</div>
+<!-- Blog Section End -->
+
+<div class="rs-newsletter style1  orange-color mb--90 sm-mb-0 sm-pb-70">
+	<div class="container">
+	   <div class="newsletter-wrap">
+		  <div class="row y-middle">
+				<div class="col-lg-6 col-md-12 md-mb-30">
+				   <div class="content-part">
+					  <div class="sec-title">
+						 <div class="title-icon md-mb-15">
+							   <img src="{{ 'assets/images/newsletter.png' | theme }}" alt="images">
+						 </div>
+						 <h2 class="title mb-0 white-color mt-0">{{ 'Xəbərlərə abunə ol'  |_  }}</h2>
+					  </div>
+				   </div>
+				</div>
+				<div class="col-lg-6 col-md-12">
+				   {% component 'Subscriptionform' %}
+				</div>
+		  </div>
+	   </div>
+	</div>
+</div>

@@ -1,0 +1,14 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+
+
+    name:
+        label: Ekspertin adı
+        searchable: true
+        span: storm
+        cssClass: col-md-6
+
+

@@ -1,0 +1,89 @@
+tabs:
+    fields:
+        id:
+            label: ID
+            disabled: true
+            hidden: true
+
+        title:
+            label: Xidmətin adı
+            tab: Əsas məlumat
+            span: storm
+            cssClass: col-md-4
+
+        image:
+            label: Şəkil başlıq
+            type: mediafinder
+            span: storm
+            cssClass: col-md-3
+            tab: Əsas məlumat
+        is_icon:
+            label: Başlığdan öncə ikon olacaq?
+            type: checkbox
+            span: storm
+            cssClass: col-md-2
+            tab: Əsas məlumat
+        icon:
+            label: Ikon (Font Awesome)
+            tab: Əsas məlumat
+            span: storm
+            cssClass: col-md-2
+            trigger:
+                action: enable
+                field: is_icon
+                condition: checked
+        video:
+            label: Video bölməsi üçün link
+            span: storm
+            cssClass: col-md-6
+            tab: Əsas məlumat
+        video-bg:
+            label: Video üçün şəkil 
+            span: storm
+            cssClass: col-md-6
+            tab: Əsas məlumat
+            type: mediafinder
+            
+        excerpt:
+            label: Qısa məlumat
+            span: storm
+            type: richeditor
+            cssClass: col-md-4
+            tab: Əsas məlumat
+            
+        description:
+            label: Ümumi Melumat
+            type: richeditor
+            span: storm
+            cssClass: col-md-8
+            tab: Əsas məlumat
+
+        price:
+            type: richeditor
+            span: storm
+            cssClass: col-md-12
+            tab: Qiymət
+
+
+
+
+
+
+        faq:
+            label: Konsultasiyadan Gələn Suallar
+            type: repeater
+            tab: FAQ
+            prompt: Yeni sual-cavab
+            form:
+                fields:
+                    question:
+                        label: Sual
+                    answer:
+                        label: Cavab
+
+
+        overview:
+            type: richeditor
+            span: storm
+            cssClass: col-md-12
+            tab: Xidmətə daxildir

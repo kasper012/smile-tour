@@ -1,0 +1,79 @@
+[viewBag]
+
+[blogPosts]
+pageNumber = "{{ :page }}"
+categoryFilter = "blog"
+postsPerPage = 3
+noPostsMessage = "Xəbər tapılmadı"
+sortOrder = "published_at desc"
+categoryPage = "blog"
+postPage = "post"
+
+[blogCategories]
+slug = "{{ :slug }}"
+displayEmpty = 0
+categoryPage = "blog-categories"
+==
+
+{% set posts = blogPosts.posts %}
+<div class="col-lg-8 pr-50 md-pr-15">
+  <div class="row">
+    <div class="col-lg-12 mb-70">
+      {% for post in posts %}
+      {% if post.published %}
+      <div class="blog-item mb-50">
+        <div class="blog-img">
+          <a href="{{ post.url }}">
+            <img data-src="{{ image.filename }}" src="{{ post.featured_images[0].path }}" alt="{{ image.description }}"></a>
+        </div>
+        <div class="blog-content">
+          <h3 class="blog-title"><a href="{{post.url}}">{{post.title}} </a></h3>
+          <div class="blog-meta">
+            <ul class="btm-cate">
+              <li>
+                <div class="blog-date">
+                  <i class="fa fa-calendar-check-o"></i> {{post.published_at|date ('d/m/Y')}}
+                </div>
+              </li>
+              <li>
+                <div class="author">
+                  <i class="fa fa-user-o"></i> {{ post.user.first_name }} {{ post.user.last_name }}
+                </div>
+              </li>
+              {% for category in post.categories  %}
+              <li>
+                <div class="tag-line">
+                  {% if loop.index == 1 %}
+                  <i class="fa fa-book"></i>
+                  {% endif %}         
+                      {{ category.name }}
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="blog-desc">
+            {{post.excerpt}}
+          </div>
+          <div class="blog-button">
+            <a class="blog-btn" href="{{ post.url }}">{{ 'Ətraflı oxu' |_ }}</a>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+      <!-- pagination start-->
+      {{ posts }}
+    <div class="col-12 text-center d-flex justify-content-center">
+      <ul class="pagination pagination-lg mx-auto">
+        {% for page in 1..posts.lastPage %}
+        <li class="page-item {{ posts.currentPage == page ? 'active' : null }} number">
+          <a href="{{ 'blog' | page({page:page}) }}" class="page-link">{{ page }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+      <!-- pagination end-->
+  </div>
+</div>

@@ -1,0 +1,22 @@
+    <form class="newsletter-form"  method="post" data-request="{{ __SELF__ }}::onSend" data-request-success="formSuccess(this, context, data, textStatus, jqXHR)" data-request-validate data-request-flash>
+        <input type="email" name="email" placeholder="{{ 'Elektron ünvanı qeyd edin' |_ }}" required="">
+        <button type="submit">{{ 'Abunə ol' |_ }}</button>
+     </form>
+
+<script>
+    function formSuccess(form, context, data, textStatus, jqXHR) {
+       if(data['status'] != 200) 
+           status = 'error'; 
+           else {
+               form.reset();
+               status = 'success'; 
+           }
+       $.oc.flashMsg({
+           'text': data['msg'],
+           'class': status,
+           'interval': 3
+       });
+    }
+</script>
+
+

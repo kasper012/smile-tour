@@ -1,0 +1,42 @@
+<form id="contact-form" method="post" data-request="{{ __SELF__ }}::onSend" data-request-success="formSuccess(this, context, data, textStatus, jqXHR)" data-request-validate data-request-flash>
+  <fieldset>
+      <div class="row">
+          <div class="col-lg-6 mb-35 col-md-6 col-sm-6">
+              <input class="from-control" type="text" id="name" name="name" placeholder="{{ 'Ad və soyad' |_ }}" required>
+          </div> 
+          <div class="col-lg-6 mb-35 col-md-6 col-sm-6">
+              <input class="from-control" type="text" id="email" name="email" placeholder="{{ 'Elektron ünvan' |_ }}" required>
+          </div>   
+          <div class="col-lg-6 mb-35 col-md-6 col-sm-6">
+              <input class="from-control" type="text" id="phone" name="phone" placeholder="{{ 'Telefon' |_ }}" required>
+          </div>   
+          <div class="col-lg-6 mb-35 col-md-6 col-sm-6">
+              <input class="from-control" type="text" id="subject" name="subject" placeholder="{{ 'Mövzu' |_ }}" required>
+          </div>
+          <div class="col-lg-12 mb-50">
+              <textarea class="from-control" id="message" name="msg" placeholder="{{ 'Mesaj' |_ }}" required></textarea>
+          </div>
+      </div>
+      <div class="form-group mb-0">
+            <button class="btn-send" type="submit">{{ 'Göndər' |_ }}</button>
+      </div>										   
+  </fieldset>
+</form>
+
+<script>
+    function formSuccess(form, context, data, textStatus, jqXHR) {
+       if(data['status'] != 200) 
+           status = 'error'; 
+           else {
+               form.reset();
+               status = 'success'; 
+           }
+       $.oc.flashMsg({
+           'text': data['msg'],
+           'class': status,
+           'interval': 3
+       });
+    }
+</script>
+
+

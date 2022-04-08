@@ -1,0 +1,88 @@
+title = "Контакты"
+url = "/kontakti"
+layout = "default"
+is_hidden = 0
+
+[viewBag]
+localeTitle[en] = "Contacts"
+localeUrl[en] = "/contacts/"
+==
+{% partial 'nav/breadcrumb' 
+	title = ( 'Əlaqə' | _) 
+	links = [
+				{'title': ( 'Əlaqə' | _) }
+			]
+	%}
+
+
+<!-- Contact Section Start -->
+<div class="contact-page-section pt-100 pb-100 md-pt-70 md-pb-70">
+  <div class="container">
+    <div class="rs-contact-img mb-90">
+      <div class="row">
+        <div class="col-lg-6 md-mb-30">
+          <div class="img-part js-tilt">
+            <img src="{{'assets/images/contact/contact4.png'|theme}}" alt="">
+          </div>
+        </div>
+        <div class="col-lg-6 pl-50 md-pl-15">
+          <!-- Map Section Start -->
+          <div class="contact-map3">
+            <iframe src="{{ company.google_map }}" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+          </div>
+          <!-- Map Section End -->
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-90 md-mb-50 d-flex justify-content-center">
+      {% for contacts in company.contact_block %}
+      <div class="col-md-12 md-mb-30">
+        <div class="rs-contact-wrap">
+          <div class="inner-part text-center">
+            <h2 class="title2">{{ contacts.title }}</h2>
+          </div>
+          {% if contacts.email %}
+          <div class="address-item">
+            <div class="address-icon">
+              <i class="fa fa-envelope-o"></i>
+            </div>
+            <div class="address-text">
+              <span class="label">{{ 'Elektron ünvan' |_}}</span>
+              <span class="des">{{ contacts.email }}</span>
+            </div>
+          </div>
+          {% endif %}
+          {% if contacts.phone %}
+          <div class="address-item">
+            <div class="address-icon">
+              <i class="fa fa-headphones"></i>
+            </div>
+            <div class="address-text">
+              <span class="label"> 
+                  {{ 'Telefon' |_}}
+              </span>
+              <span class="des">{{ contacts.phone }}</span>
+            </div>
+          </div>
+          {% endif %}
+          {% if contacts.address %}
+          <div class="address-item">
+            <div class="address-icon">
+              <i class="fa fa-map-signs"></i>
+            </div>
+            <div class="address-text">
+              <span class="label">{{ 'Ünvan' |_}}</span>
+              <span class="des">{{ contacts.address }}</span>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<!-- Contact Section End -->
+
+{% partial 'subscribe' %}
