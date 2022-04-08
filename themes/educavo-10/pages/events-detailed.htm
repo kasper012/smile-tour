@@ -80,6 +80,7 @@ public function onStart() {
                {% endif %}
                <ul class="single-post-meta d-flex">
                     <li class="justify-self-end">
+
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-warning text-white font-weight-bold" data-toggle="modal" data-target="#exampleModalCenter">
                           {{ 'Yazılmaq' |_ }}
@@ -93,11 +94,10 @@ public function onStart() {
                               <div class="modal-body">
                                 <!-- start form -->
                                     {% component 'Eventregform' %}
+
                                 <!-- end form -->
                               </div>
-                              <div class="modal-footer">
-                                <button type="submit" class="btn btn-success">{{ 'Göndər' |_ }}</button>
-                              </div>
+
                             </div>
                           </div>
                         </div>

@@ -13,7 +13,7 @@ class Eventregform extends ComponentBase
     {
         return [
             'name'        => 'Eventregform Component',
-            'description' => 'No description provided yet...'
+            'description' => 'Form for registration to event'
         ];
     }
 
@@ -62,7 +62,7 @@ class Eventregform extends ComponentBase
 
         return $flash_message = [
             'status' => 200,
-            'msg'  => 'Mesajınız göndərildi'
+            'msg'  => 'Спасибо за регистрацию!'
         ];
     }
 }

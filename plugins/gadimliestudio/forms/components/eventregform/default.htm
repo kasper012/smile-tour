@@ -1,15 +1,15 @@
-<form>
+<form id="contact-form" method="post" data-request="{{ __SELF__ }}::onSend" data-request-success="formSuccess(this, context, data, textStatus, jqXHR)" data-request-validate data-request-flash>
   <div class="form-group">
-    <label for="exampleFormControlInput1">{{ 'Ad və soyad' |_ }}</label>
+    <label for="name">{{ 'Ad və soyad' |_ }}</label>
     <input type="text" class="form-control" id="exampleFormControlInput1" name="name" >
   </div>
   <div class="form-group">
-    <label for="exampleFormControlInput1">{{ 'Email' |_ }}</label>
+    <label for="email">{{ 'Email' |_ }}</label>
     <input type="email" class="form-control" id="email" name="email" >
   </div>
   <div class="form-group">
-    <label for="exampleFormControlInput1">{{ 'Telefon nömrəsi' |_ }}</label>
-    <input type="number" class="form-control" id="exampleFormControlInput1">
+    <label for="phone">{{ 'Əlaqə nömrəniz' |_ }}</label>
+    <input type="number" name="phone" class="form-control" id="exampleFormControlInput1">
   </div>
 <input name="link" type="hidden" value="https://edusupport.global/ru/meropriyatiya/{{ project.id }}">
   <div class="form-group">
