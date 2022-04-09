@@ -1,27 +1,58 @@
 <form id="contact-form" method="post" data-request="{{ __SELF__ }}::onSend" data-request-success="formSuccess(this, context, data, textStatus, jqXHR)" data-request-validate data-request-flash>
-  <div class="form-group">
-    <label for="name">{{ 'Ad və soyad' |_ }}</label>
-    <input type="text" class="form-control" id="exampleFormControlInput1" name="name" >
+  <div class="form-row">
+      <input name="traffic" type="hidden" value="{{ project.title }}">
+      
+      <div class="form-group col-md-6 mb-3">
+        <!-- <label for="first_name">{{ 'Adınız' |_ }}</label> -->
+        <input type="text" placeholder="{{ 'Adınız' |_ }}" class="form-control px-3 py-4" id="first_name" name="first_name" >
+      </div>
+      
+      <div class="form-group col-md-6 mb-3">
+        <!-- <label for="last_name">{{ 'Soyadınız' |_ }}</label> -->
+        <input type="text" placeholder="{{ 'Soyadınız' |_ }}" class="form-control px-3 py-4" id="last_name" name="last_name" >
+      </div>
+      <div class="form-group col-md-12 my-3">
+        <!-- <label for="email">{{ 'Email ünvanınız' |_ }}</label> -->
+        <input type="email" placeholder="{{ 'Email ünvanınız' |_ }}" class="form-control px-3 py-4" id="email" name="email" >
+      </div>
+      <div class="form-group col-md-12 my-3">
+        <!-- <label for="mobile">{{ 'Əlaqə nömrəniz' |_ }}</label> -->
+        <input type="text" placeholder="{{ 'Əlaqə nömrəniz' |_ }}" name="mobile" class="form-control px-3 py-4" id="mobile">
+      </div>
+      <div class="form-group col-md-12 mt-2">
+        <label for="source">{{ 'Source' |_ }}</label>
+        <select id="source" name="source" class="form-control px-3 py-3" style="height: auto; ">
+            <option value="Facebook">Facebook</option>
+            <option value="Instagram">Instagram</option>
+            <option value="Linkedin">Linkedin</option>
+            <option value="{{ 'Dostum məsləhət görüb' | _ }}">{{ 'Dostum məsləhət görüb' | _ }}</option>
+            <option value="{{ 'Google araşdırma' | _ }}">{{ 'Google araşdırma' | _ }}</option>
+            <option value="{{ 'Kursda məsləhət görüblər' | _ }}">{{ 'Kursda məsləhət görüblər' | _ }}</option>
+        </select>
+      </div>
+      
+      <div id="source_cource_name_box" class="form-group col-md-12 d-none">
+        <label for="source_cource_name">{{ 'Hansı kurs?' |_ }}</label>
+        <input type="text" name="source_cource_name" class="form-control" id="source_cource_name">
+      </div>
+      
+      
+      <script>
+          $(document).ready(function() {
+              
+                $('#source').change(function() {
+                    if($(this).val() == "{{ 'Kursda məsləhət görüblər' | _ }}") {
+                        $('#source_cource_name_box').removeClass('d-none');
+                    } else {
+                        $('#source_cource_name_box').addClass('d-none');
+                        $('#source_cource_name').val('');
+                    }
+                }) 
+          });
+      </script>
+      
   </div>
-  <div class="form-group">
-    <label for="email">{{ 'Email' |_ }}</label>
-    <input type="email" class="form-control" id="email" name="email" >
-  </div>
-  <div class="form-group">
-    <label for="phone">{{ 'Əlaqə nömrəniz' |_ }}</label>
-    <input type="number" name="phone" class="form-control" id="exampleFormControlInput1">
-  </div>
-<input name="link" type="hidden" value="https://edusupport.global/ru/meropriyatiya/{{ project.id }}">
-  <div class="form-group">
-    <label for="exampleFormControlSelect2">{{ 'Source' |_ }}</label>
-    <select class="form-control" name="source">
-      <option value="1">Default select</option>
-      <option value="2">Default select</option>
-      <option value="3">Default select</option>
-      <option value="4">Default select</option>
-    </select>
-  </div>
-<button type="submit" class="btn btn-success">{{ 'Göndər' |_ }}</button>
+<button type="submit" class="btn btn-success w-100 p-3 mt-3" style="font-size: 1.1rem">{{ 'Göndər' |_ }}</button>
 </form>
 
 <script>

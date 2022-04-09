@@ -5,6 +5,8 @@ use Validator;
 use October\Rain\Exception\ValidationException;
 use Input;
 use Illuminate\Support\Facades\Mail;
+use October\Rain\Network\Http;
+use GuzzleHttp\Client;
 
 
 class Eventregform extends ComponentBase
@@ -24,6 +26,7 @@ class Eventregform extends ComponentBase
 
     public function onSend()
     {
+        /*
         $customMessages = [
             'fullname.required' => trans('gadimliestudio.forms::lang.fullname.required'),
             'subject.required' => trans('gadimliestudio.forms::lang.subject.required'),
@@ -32,6 +35,7 @@ class Eventregform extends ComponentBase
             'phone.required' => trans('gadimliestudio.forms::lang.phone.required'),
             'msg.required' => trans('gadimliestudio.forms::lang.msg.required'),
         ];
+        */
 
         $flash_message = [
             'status' => 200,
@@ -41,11 +45,13 @@ class Eventregform extends ComponentBase
 
         $validation = Validator::make(
             $form = Input::all(), [
-                'name' => 'required|string',
+                'first_name' => 'required|string',
+                'last_name' => 'required|string',
                 'email' => 'required|email',
-                'phone' => 'required',
-            ], $customMessages
-        );
+                'mobile' => 'required',
+                'source' => 'required',
+                'traffic' => 'required',
+            ]);
 
         if ($validation->fails()) {
             return $flash_message = [
@@ -53,11 +59,19 @@ class Eventregform extends ComponentBase
                 'msg'  => $validation->errors()->first()
             ];
         } else {
+            
             $params = Input::all();
-            Mail::send('EventSubscriptionForm', $params, function($message) {
-                $message->to(env('MAIL_TO', 'subayev@gadimlie.com'), '');
-                $message->subject('Event ');
-            });
+            
+            if($params['source_cource_name'])  {
+                $params['source'] = $params['source'] . ': ' . $params['source_cource_name'];
+            }
+            
+        
+            $client = new Client();
+            $response = $client->request('POST', 'http://crm.edusupport.az/api/customers/add', 
+                    ['form_params' => $params]
+                );
+
         }
 
         return $flash_message = [
