@@ -1,10 +1,8 @@
 <?php namespace RainLab\Translate\Controllers;
 
-use Backend\Behaviors\ImportExportController;
 use Lang;
 use Flash;
 use RainLab\Translate\Models\MessageExport;
-use Request;
 use BackendMenu;
 use Backend\Classes\Controller;
 use RainLab\Translate\Models\Message;
@@ -14,12 +12,15 @@ use System\Helpers\Cache as CacheHelper;
 use System\Classes\SettingsManager;
 
 /**
- * Messages Back-end Controller
+ * Messages Backend Controller
  */
 class Messages extends Controller
 {
+    /**
+     * implement the TranslatableModel behavior softly
+     */
     public $implement = [
-        ImportExportController::class,
+        \Backend\Behaviors\ImportExportController::class,
     ];
 
     public $importExportConfig = 'config_import_export.yaml';
@@ -44,7 +45,6 @@ class Messages extends Controller
 
     public function index()
     {
-        $this->bodyClass = 'slim-container breadcrumb-flush';
         $this->pageTitle = 'rainlab.translate::lang.messages.title';
         $this->prepareTable();
     }
@@ -74,7 +74,7 @@ class Messages extends Controller
         }
 
         ThemeScanner::scan();
-        
+
         if (post('purge_deleted_messages', false)) {
             Message::where('found', 0)->delete();
         }
@@ -114,7 +114,7 @@ class Messages extends Controller
         /*
          * Make table widget
          */
-        $widget = $this->makeWidget('Backend\Widgets\Table', $config);
+        $widget = $this->makeWidget(\Backend\Widgets\Table::class, $config);
         $widget->bindToController();
 
         /*

@@ -4,8 +4,7 @@ use Backend\FormWidgets\RichEditor;
 use RainLab\Translate\Models\Locale;
 
 /**
- * ML Rich Editor
- * Renders a multi-lingual WYSIWYG editor.
+ * MLRichEditor renders a multi-lingual WYSIWYG editor.
  *
  * @package rainlab\translate
  * @author Alexey Bobkov, Samuel Georges
@@ -19,8 +18,20 @@ class MLRichEditor extends RichEditor
      */
     protected $defaultAlias = 'mlricheditor';
 
+    /**
+     * @var string originalAssetPath
+     */
     public $originalAssetPath;
+
+    /**
+     * @var string originalViewPath
+     */
     public $originalViewPath;
+
+    /**
+     * @var bool legacyMode disables the Vue integration
+     */
+    public $legacyMode = true;
 
     /**
      * {@inheritDoc}
@@ -48,6 +59,9 @@ class MLRichEditor extends RichEditor
         return $this->makePartial('mlricheditor');
     }
 
+    /**
+     * prepareVars
+     */
     public function prepareVars()
     {
         parent::prepareVars();
@@ -55,7 +69,7 @@ class MLRichEditor extends RichEditor
     }
 
     /**
-     * Returns an array of translated values for this field
+     * getSaveValue returns an array of translated values for this field
      * @return array
      */
     public function getSaveValue($value)

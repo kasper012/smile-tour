@@ -1,0 +1,258 @@
+title = "Demonstration"
+url = "/"
+layout = "default"
+[tours]
+
+[TestimonialsForm]
+thanksMessage = "Rəyinizə görə təşəkkür edirik!"
+[TestimonialsList]
+==
+{% put extras %}
+{% framework extras %}
+{% endput %}
+
+<!-- HERO SECTION -->
+<section id="hero-slider">
+    <div class="hero-slider__wrapper">
+        {% for slider in sliders.slider %}
+      <div>
+        <div class="hero-slider__slide" style="background-image: url('{{ slider.image | media }}');">
+          <h1>{{ slider.title }}</h1>
+          <h4><span class="left-wing"></span>{{ slider.suptitle }}<span class="right-wing"></span></h4>
+          <a href="{{ slider.btn_url_1 }}" class="btn btn--with-icon"><i class="fa fa-2x {{ slider.icon }}" aria-hidden="true"></i><abbr title=""></abbr>{{ slider.btn_txt_1 }}</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <span class="hero-slider__button hero-slider__button--prev"><i class="fa fa-2x fa-chevron-left" aria-hidden="true"></i></span>
+    <span class="hero-slider__button hero-slider__button--next"><i class="fa fa-2x fa-chevron-right" aria-hidden="true"></i></span>
+  </section>
+  
+
+
+<section class="about-us pb-0 pt-6 mt-5" id="about-us">
+    <div class="container">
+        <div class="about-image-box">
+            <div class="row d-flex align-items-center justify-content-between">
+                <div class="col-lg-6 col-sm-12 mb-4" data-aos="fade-right">
+                    <div class="about-content">
+                        <p class="mb-3">{{ company.about | raw }}</p>
+                        <div class="about-imagelist">
+
+                        </div>
+
+                        <div class="why-us pt-4 border-t">
+                            <div class="why-us-box">
+                                <div class="row">
+                                    {% for adv in company.advantages %}
+                                    <div class="col mb-4">
+                                        <div class="why-us-item text-center bg-lgrey">
+                                            <div class="why-us-icon mb-2">
+                                                <i class="fas fa-{{ adv.icon }} pink"></i>
+                                            </div>
+                                            <div class="why-us-content">
+                                                <h4>{{ adv.title }}</h4>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-12 mb-4" data-aos="fade-left">
+                    <div class="about-image">
+                        <img src="{{ company.about_image | media }}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="counter-main pb-6" style="background-image: url({{ 'assets/images/bg/bg4.jpg' | theme }});background-attachment: fixed">
+    <div class="container">
+        <div class="counter text-center">
+            <div class="row">
+                {% for num in company.numbers %}
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-4" data-aos="fade-down">
+                    <div class="counter-item bg-lgrey">
+                        <i class="fa fa-{{ num.icon }} white bg-navy mb-1"></i>
+                        <h3 class="value mb-0 navy">{{ num.number }}</h3>
+                        <h4 class="m-0">{{ num.title }}</h4>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="overlay"></div>
+</section>
+
+
+<section id="oneday" class="trending pb-6 pt-5" >
+    <div class="container">
+        <div class="section-title text-center mb-5 pb-2 w-50 mx-auto">
+            <h2 class="m-0"><span>Day</span> Trips</h2>
+            <p class="mb-0">{{ company.daytrip_about | raw }}.</p>
+        </div>
+        <div class="trend-box">
+            <div class="row">
+
+                {% for tour in tours %}
+                {% if tour.type is same as("day_trip") %}
+                <div class="col-lg-4 col-md-6 col-xs-12 mb-4">
+                    <div class="trend-item">
+                        <div class="trend-image">
+                            <img src="{{ tour.image | media }}" alt="image">
+
+                        </div>
+                        <div class="trend-content-main">
+                            <div class="trend-content">
+                                <h6 class="font-weight-normal pink"><i class="fa fa-map-marker-alt"></i> {{ tour.location }}
+                                </h6>
+                                <h4><a href="{{ 'tour-single' | page({id:tour.id}) }}">{{ tour.title }}</a></h4>
+
+
+                            </div>
+                            <div class="trend-last-main">
+                                <p class="mb-0 trend-para">{{ tour.short_description | raw }}</p>
+                                <div class="trend-last d-flex align-items-center justify-content-between">
+                                    <p class="mb-0 white"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ tour.starts | date("H:i") }} - {{ tour.finish | date("H:i") }}</p>
+                                    <div class="trend-price">
+                                        <p class="price white mb-0">From <span>${{ tour.price }}</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="packages" class="top-destination overflow-hidden pb-9" >
+    <div class="container">
+        <div class="desti-inner">
+            <div class="row d-flex align-items-center">
+                <div class="col-lg-4 col-md-6 p-1" data-aos="fade-up">
+                    <div class="desti-title text-center">
+                        <h1 class="white">Packages </h1> <h2 class="white">Trips for several days </h2>
+                        <p class="white mb-0">{{ company.severalday_about | raw }}  </p>
+                    </div>
+                </div>
+
+                {% for tour in tours %}
+                {% if tour.type is same as("several") and loop.index <= 3 %}
+                <div class="col-lg-4 col-md-6 p-1">
+                    <div class="desti-image">
+                        <img src="{{ tour.image | media }}" alt="desti">
+                        <div class="desti-content">
+
+                            <h4 class="white mb-0">{{ tour.title }}</h4>
+                        </div>
+                        <div class="desti-overlay py-5 px-3 d-flex justify-content-center align-items-center">
+
+
+                            <a href="{{ 'tour-single' | page({id:tour.id}) }}" class="nir-btn" tabindex="0">
+                                <span class="white">Book Now</span>
+                                <i class="fa fa-arrow-right white pl-1"></i>
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+                {% elseif tour.type is same as("several") and loop.index >= 3  %}
+                <div class="col-lg-3 col-md-6 p-1">
+                    <div class="desti-image">
+                        <img src="{{ tour.image | media }}" alt="desti">
+                        <div class="desti-content">
+
+                            <h4 class="white mb-0">{{ tour.title }}</h4>
+                        </div>
+                        <div class="desti-overlay d-flex justify-content-center align-items-center">
+                            <a href="{{ 'tour-single' | page({id:tour.id}) }}" class="nir-btn">
+                                <span class="white">Book Now</span>
+                                <i class="fa fa-arrow-right white pl-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div id="particles-js"></div>
+</section>
+
+
+
+<section id="contacts" class="contact-main  contact1 bg-grey">
+
+    <div class="container">
+        <div class="contact-info">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="map">
+                        <div style="width: 100%">
+                            <iframe height="500" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3039.969967093427!2d49.83284591526891!3d40.36519027937114!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40307d81e84a7931%3A0xd041833a96e91e3!2sSmile%20Azerbaijan%20Tour!5e0!3m2!1sru!2s!4v1656324463292!5m2!1sru!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" data-aos="fade-down">
+                    <div class="contact-info">
+                        <h3 class="">CONTACT INFO </h3>
+
+                        <div class="info-item d-flex align-items-center bg-white mb-3">
+                            <div class="info-icon">
+                                <i class="fa fa-map-marker"></i>
+                            </div>
+                            <div class="info-content pl-4">
+                                <p class="m-0">{{ company.address }}</p>
+                            </div>
+                        </div>
+                        <div class="info-item d-flex align-items-center bg-white mb-3">
+                            <div class="info-icon">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            <div class="info-content pl-4">
+                                {% for phone in company.phone %}
+                                <p class="m-0">
+                                    <a href="tel:{{ phone.phone }}">
+                                    {{ phone.phone }}
+                                    </a>
+                                </p>
+                                {% endfor %}
+
+                                
+                            </div>
+                        </div>
+                        <div class="info-item d-flex align-items-center bg-white mb-3">
+                            <div class="info-icon">
+                                <i class="fa fa-envelope"></i>
+                            </div>
+                            <div class="info-content pl-4">
+                                {% for email in company.email %}
+                                <p class="m-0"><a href="mailto:{{ email.email }}" class="">{{ email.email }}</a>
+                                </p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+

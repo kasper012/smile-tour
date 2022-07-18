@@ -1,0 +1,49 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+
+fields:
+    
+
+tabs:
+    fields:
+
+        slider:
+            type: repeater
+            prompt: Yeni şəkil
+            tab: Slayder
+            form: 
+                fields: 
+
+                    suptitle:
+                        label: Başlığın üstündə yazı
+                        span: storm
+                    title: 
+                        label: Başlıq
+                        span: storm
+                    
+                    image: 
+                        label: Şəkil
+                        span: storm
+                        type: mediafinder
+                    icon:
+                        label: FontAwesome Icon Code
+                        span: storm
+                        
+                    btn_txt_1:
+                        label: Düymənin məzmunu
+                        span: auto
+                    btn_url_1: 
+                        label: Düymənin linki
+                        span: auto
+                    
+
+
+                    
+                    
+
+
+        
+        
+                

@@ -1,0 +1,135 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    id:
+        label: ID
+        disabled: true
+        hidden: true
+
+    title:
+        label: Tour name
+        required: true
+        span: storm
+        cssClass: col-md-4
+    type:
+        label: Type of tour
+        type: dropdown
+        span: storm
+        cssClass: col-md-4
+        options:
+            day_trip: Day trip
+            several: Several days trip
+
+    price:
+        label: Price
+        span: storm
+        cssClass: col-md-4
+
+
+    duration:
+        label: Duration
+        span: storm
+        cssClass: col-md-3
+    max_people:
+        label: Maximum people
+        span: storm
+        cssClass: col-md-3
+        
+    min_age:
+        label: Minimal age
+        span: storm
+        cssClass: col-md-3
+    language:
+        label: Language
+        span: storm
+        cssClass: col-md-3
+    
+
+    starts:
+        label: Tour starts at
+        span: storm
+        cssClass: col-md-3
+        type: datepicker
+        mode: time
+    finish:
+        label: Tour finishes
+        span: storm
+        cssClass: col-md-3
+        type: datepicker
+        mode: time
+    meeting_point: 
+        label: Meeting point
+        span: storm
+        cssClass: col-md-3
+    pickup:
+        label: Pickup (available or not)
+        span: storm
+        cssClass: col-md-3
+
+    image:
+        label: Background image
+        type: mediafinder
+        span: storm
+        cssClass: col-md-6
+
+    location:
+        label: Location
+        span: storm
+        cssClass: col-md-6
+
+    short_description:
+        label: Short info about tour
+        type: textarea
+        span: storm
+        cssClass: col-md-12
+
+
+    description:
+        label: Info about tour
+        type: richeditor
+        span: storm
+        cssClass: col-md-12
+
+    
+
+    included:
+        label: What is included
+        type: repeater
+        prompt: Add point
+        form:
+            fields:
+                point:
+    excluded:
+        label: What is excluded
+        type: repeater
+        prompt: Add point
+        form:
+            fields:
+                point:
+    iternary:
+        label: Iternary
+        type: repeater
+        prompt: Add place
+        form:
+            fields:
+                question:
+                    label: Place name
+                answer:
+                    label: Description
+                    type: richeditor
+
+        
+
+    images: 
+            label: Gallery
+            type: repeater
+            prompt: Add image
+            form:
+                fields:
+                    image: 
+                        label: Image
+                        type: mediafinder
+    
+

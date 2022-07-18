@@ -1,7 +1,6 @@
 <?php namespace RainLab\Translate\Models;
 
 use Lang;
-use File;
 use Cache;
 use Model;
 use Config;
@@ -49,7 +48,7 @@ class Locale extends Model
     /**
      * @var self Default locale cache.
      */
-    private static $defaultLocale;
+    protected static $defaultLocale;
 
     public function afterCreate()
     {
@@ -100,6 +99,13 @@ class Locale extends Model
             return self::$defaultLocale;
         }
 
+        if ($forceDefault = Config::get('rainlab.translate::forceDefaultLocale')) {
+            $locale = new self;
+            $locale->name = $locale->code = $forceDefault;
+            $locale->is_default = $locale->is_enabled = true;
+            return self::$defaultLocale = $locale;
+        }
+
         return self::$defaultLocale = self::where('is_default', true)
             ->remember(1440, 'rainlab.translate.defaultLocale')
             ->first()
@@ -131,10 +137,7 @@ class Locale extends Model
      */
     public function scopeIsEnabled($query)
     {
-        return $query
-            ->whereNotNull('is_enabled')
-            ->where('is_enabled', true)
-        ;
+        return $query->where('is_enabled', true);
     }
 
     /**
@@ -208,5 +211,8 @@ class Locale extends Model
     {
         Cache::forget('rainlab.translate.locales');
         Cache::forget('rainlab.translate.defaultLocale');
+        self::$cacheListEnabled = null;
+        self::$cacheListAvailable = null;
+        self::$cacheByCode = [];
     }
 }

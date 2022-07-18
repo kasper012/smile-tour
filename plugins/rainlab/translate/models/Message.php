@@ -79,7 +79,7 @@ class Message extends Model
      * @param  string $message
      * @return void
      */
-    public function toLocale($locale = null, $message)
+    public function toLocale($locale = null, $message = null)
     {
         if ($locale === null) {
             return;
@@ -109,7 +109,7 @@ class Message extends Model
             return $messageId;
         }
 
-        $messageCode = self::makeMessageCode($messageId);
+        $messageCode = static::makeMessageCode($messageId);
 
         /*
          * Found in cache
@@ -175,7 +175,7 @@ class Message extends Model
                 continue;
             }
 
-            $code = self::makeMessageCode($code);
+            $code = static::makeMessageCode($code);
 
             $item = static::firstOrNew([
                 'code' => $code
@@ -260,7 +260,7 @@ class Message extends Model
         self::$url = $url;
         self::$locale = $locale;
 
-        if ($cached = Cache::get(self::makeCacheKey())) {
+        if ($cached = Cache::get(static::makeCacheKey())) {
             self::$cache = (array) $cached;
         }
     }
@@ -276,7 +276,7 @@ class Message extends Model
         }
 
         $expiresAt = now()->addMinutes(Config::get('rainlab.translate::cacheTimeout', 1440));
-        Cache::put(self::makeCacheKey(), self::$cache, $expiresAt);
+        Cache::put(static::makeCacheKey(), self::$cache, $expiresAt);
     }
 
     /**

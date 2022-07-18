@@ -42,7 +42,7 @@
         }
 
         .ml-btn {
-            right: 13px;
+            right: 25px;
             top: 5px;
             width: 24px;
             text-align: right;
@@ -108,18 +108,34 @@
             }
         }
     }
-}
 
-.fancy-layout {
-    .form-tabless-fields .field-multilingual {
+    &.field-multilingual-nestedform {
         .ml-btn {
-            color: rgba(255,255,255,.8);
+            top: -3px;
+            right: 11px;
+            text-align: right;
+        }
 
-            &:hover {
-                color: rgba(255,255,255,1);
+        .ml-dropdown-menu {
+            top: 24px;
+            right: -2px;
+        }
+
+        &.is-paneled {
+            .ml-btn {
+                top: 7px;
+                right: 15px;
+            }
+
+            .ml-dropdown-menu {
+                top: 34px;
+                right: 2px;
             }
         }
     }
+}
+
+.fancy-layout {
     .field-multilingual-text input.form-control {
         padding-right: 44px;
     }

@@ -1,25 +1,30 @@
-<?php
+<?php namespace Rainlab\Translate\Components;
 
-namespace Rainlab\Translate\Components;
-
-use Cms\Classes\ComponentBase;
 use Event;
 use RainLab\Translate\Classes\Translator;
 use RainLab\Translate\Models\Locale as LocaleModel;
 use October\Rain\Router\Router as RainRouter;
+use Cms\Classes\ComponentBase;
 
+/**
+ * AlternateHrefLangElements
+ */
 class AlternateHrefLangElements extends ComponentBase
 {
-
-
+    /**
+     * componentDetails
+     */
     public function componentDetails()
     {
         return [
-            'name'        => 'rainlab.translate::lang.alternate_hreflang.component_name',
+            'name' => 'rainlab.translate::lang.alternate_hreflang.component_name',
             'description' => 'rainlab.translate::lang.alternate_hreflang.component_description'
         ];
     }
 
+    /**
+     * locales
+     */
     public function locales()
     {
         // Available locales
@@ -33,7 +38,10 @@ class AlternateHrefLangElements extends ComponentBase
         return $locales->toArray();
     }
 
-    private function retrieveLocalizedUrl($locale)
+    /**
+     * retrieveLocalizedUrl
+     */
+    protected function retrieveLocalizedUrl($locale)
     {
         $translator = Translator::instance();
         $page = $this->getPage();
@@ -51,19 +59,20 @@ class AlternateHrefLangElements extends ComponentBase
          */
         else {
             $page->rewriteTranslatablePageUrl($locale);
-            $router = new RainRouter;
             $params = $this->getRouter()->getParameters();
 
-            $translatedParams = Event::fire(
-                'translate.localePicker.translateParams',
-                [$page, $params, $this->oldLocale, $locale],
-                true
-            );
+            $translatedParams = Event::fire('translate.localePicker.translateParams', [
+                $page,
+                $params,
+                $this->oldLocale,
+                $locale
+            ], true);
 
             if ($translatedParams) {
                 $params = $translatedParams;
             }
 
+            $router = new RainRouter;
             $localeUrl = $router->urlFromPattern($page->url, $params);
         }
 

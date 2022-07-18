@@ -1,0 +1,133 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+
+fields:
+    name:
+        label: Şirkətin adı
+        span: storm
+        cssClass: col-md-6
+    
+    logo:
+        label: Loqo
+        span: storm
+        cssClass: col-md-6
+        type: mediafinder
+    
+tabs:
+    fields:
+        about:
+            tab: Ümumi məlumat
+            label: Şirkət haqqında məlumat
+            type: richeditor 
+            span: storm
+            cssClass: col-md-12
+        about_image:
+            tab: Ümumi məlumat
+            label: About image
+            type: mediafinder 
+            span: storm
+            cssClass: col-md-12
+
+        daytrip_about:
+            tab: Ümumi məlumat
+            label: Day trip haqqında məlumat
+            type: richeditor 
+            span: storm
+            cssClass: col-md-12
+        severalday_about:
+            tab: Ümumi məlumat
+            label: Several days trip haqqında məlumat
+            type: richeditor 
+            span: storm
+            cssClass: col-md-12
+        reviews_about:
+            tab: Ümumi məlumat
+            label: Reviews haqqında məlumat
+            type: richeditor 
+            span: storm
+            cssClass: col-md-12
+        footer_newsletter_text:
+            tab: Ümumi məlumat
+            label: Footer newsletter text
+            type: richeditor 
+            span: storm
+            cssClass: col-md-12
+        
+
+        advantages:
+            tab: Ümumi məlumat
+            label: Advantages
+            type: repeater 
+            prompt: Add new advantage
+            cssClass: col-md-12
+            form: 
+                fields:
+                    icon:
+                        label: Font awesome icon name
+                        span: storm
+                        cssClass: col-md-6
+                    title:
+                        label: Title
+                        span: storm
+                        cssClass: col-md-6
+
+        numbers:
+            tab: Ümumi məlumat
+            label: Numeric indicators
+            type: repeater 
+            prompt: Add new number
+            cssClass: col-md-12
+            form: 
+                fields:
+                    icon:
+                        label: Font awesome icon name
+                        span: storm
+                        cssClass: col-md-4
+                        default: fa fa-
+                    number:
+                        label: Number
+                        span: storm
+                        cssClass: col-md-4
+                    title:
+                        label: Title
+                        span: storm
+                        cssClass: col-md-4
+
+ 
+        socials:
+            tab: Əlaqə
+            type: repeater
+            prompt: Sosial şəbəkə əlavə et
+            form:
+                fields:
+                    name:
+                        label: Sosial şəbəkənin adı
+                        default: fab fa-
+                    url:
+                        label: Sosial şəbəkənin linki
+                
+        address:
+            tab: Əlaqə
+            label: Ünvan
+        gmaps:
+            tab: Əlaqə
+            label: Google xəritə linki
+        phone:
+            tab: Əlaqə
+            label: Telefon nömrəsi
+            type: repeater
+            prompt: Telefon əlavə et
+            form: 
+                fields:
+                    phone:
+        email:
+            tab: Əlaqə
+            label: Elektron ünvan
+            type: repeater
+            prompt: Elektron ünvan əlavə et
+            form: 
+                fields:
+                    email:
+       

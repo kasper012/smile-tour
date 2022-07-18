@@ -1,0 +1,19 @@
+{
+    "name": "excodus/translateextended-plugin",
+    "type": "october-plugin",
+    "description": "Plugin to October CMS that extends behavior of the default Translate Plugin",
+    "keywords": [
+        "october",
+        "octobercms",
+        "translate"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=5.5.9",
+        "composer/installers": "~1.0"
+    },
+    "minimum-stability": "dev",
+    "extra": {
+        "installer-name": "translateextended"
+    }
+}

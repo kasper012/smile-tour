@@ -1,9 +1,8 @@
 <?php namespace RainLab\Translate\Classes;
 
 use App;
-use Exception;
-use File;
 use Str;
+use File;
 use Cms\Classes\Page;
 use Cms\Classes\Content;
 use System\Classes\MailManager;
@@ -12,9 +11,10 @@ use RainLab\Translate\Models\Message;
 use RainLab\Translate\Models\Locale as LocaleModel;
 use RainLab\Translate\Classes\Translator;
 use RainLab\Translate\Classes\ThemeScanner;
+use Exception;
 
 /**
- * Registrant class for bootstrapping events
+ * EventRegistry for bootstrapping events
  *
  * @package october\system
  * @author Alexey Bobkov, Samuel Georges
@@ -24,9 +24,78 @@ class EventRegistry
     use \October\Rain\Support\Traits\Singleton;
 
     //
+    // Editor
+    //
+
+    /**
+     * extendEditorPageToolbar
+     */
+    public function extendEditorPageToolbar($dataHolder)
+    {
+        if (!LocaleModel::isAvailable()) {
+            return;
+        }
+
+        $locales = LocaleModel::listAvailable();
+        $defaultLocale = LocaleModel::getDefault()->code ?? null;
+
+        $properties = [];
+        foreach ($locales as $locale => $label) {
+            if ($locale == $defaultLocale) {
+                continue;
+            }
+
+            $properties[] = [
+                'property' => 'localeUrl.'.$locale,
+                'title' => 'cms::lang.editor.url',
+                'tab' => $label,
+                'type' => 'string',
+            ];
+
+            $properties[] = [
+                'property' => 'localeTitle.'.$locale,
+                'title' => 'cms::lang.editor.title',
+                'tab' => $label,
+                'type' => 'string',
+            ];
+
+            $properties[] = [
+                'property' => 'localeDescription.'.$locale,
+                'title' => 'cms::lang.editor.description',
+                'tab' => $label,
+                'type' => 'text',
+            ];
+
+            $properties[] = [
+                'property' => 'localeMeta_title.'.$locale,
+                'title' => 'cms::lang.editor.meta_title',
+                'tab' => $label,
+                'type' => 'string',
+            ];
+
+            $properties[] = [
+                'property' => 'localeMeta_description.'.$locale,
+                'title' => 'cms::lang.editor.meta_description',
+                'tab' => $label,
+                'type' => 'text',
+            ];
+        }
+
+        $dataHolder->buttons[] = [
+            'button' => 'rainlab.translate::lang.plugin.name',
+            'icon' => 'octo-icon-globe',
+            'popupTitle' => 'Translate Page Properties',
+            'properties' => $properties
+        ];
+    }
+
+    //
     // Utility
     //
 
+    /**
+     * registerFormFieldReplacements
+     */
     public function registerFormFieldReplacements($widget)
     {
         // Replace with ML Controls for translatable attributes
@@ -42,10 +111,8 @@ class EventRegistry
     }
 
     /**
-     * Translate RainLab.Pages MenuItem data
-     *
+     * registerMenuItemTranslation for RainLab.Pages MenuItem data
      * @param Backend\Widgets\Form $widget
-     * @return void
      */
     public function registerMenuItemTranslation($widget)
     {
@@ -53,16 +120,16 @@ class EventRegistry
             $defaultLocale = LocaleModel::getDefault();
             $availableLocales = LocaleModel::listAvailable();
             $fieldsToTranslate = ['title', 'url'];
-            
+
             // Replace specified fields with multilingual versions
             foreach ($fieldsToTranslate as $fieldName) {
                 $widget->fields[$fieldName]['type'] = 'mltext';
-                
+
                 foreach ($availableLocales as $code => $locale) {
                     if (!$defaultLocale || $defaultLocale->code === $code) {
                         continue;
                     }
-                    
+
                     // Add data locker fields for the different locales under the `viewBag[locale]` property
                     $widget->fields["viewBag[locale][$code][$fieldName]"] = [
                         'cssClass' => 'hidden',
@@ -80,6 +147,9 @@ class EventRegistry
     // Translate URLs
     //
 
+    /**
+     * registerPageUrlTranslation
+     */
     public function registerPageUrlTranslation($widget)
     {
         if (!$model = $widget->model) {
@@ -105,10 +175,14 @@ class EventRegistry
     //
 
     /**
-     * Automatically replace form fields for multi lingual equivalents
+     * registerModelTranslation automatically replaces form fields for multi-lingual equivalents
      */
     public function registerModelTranslation($widget)
     {
+        if ($widget->isNested) {
+            return;
+        }
+
         if (!$model = $widget->model) {
             return;
         }
@@ -118,33 +192,32 @@ class EventRegistry
         }
 
         if (
-            !$model->isClassExtendedWith('RainLab.Translate.Behaviors.TranslatableModel') &&
-            !$model->isClassExtendedWith('RainLab.Translate.Behaviors.TranslatablePage') &&
-            !$model->isClassExtendedWith('RainLab.Translate.Behaviors.TranslatableCmsObject')
+            !$model->isClassExtendedWith(\RainLab\Translate\Behaviors\TranslatableModel::class) &&
+            !$model->isClassExtendedWith(\RainLab\Translate\Behaviors\TranslatablePage::class) &&
+            !$model->isClassExtendedWith(\RainLab\Translate\Behaviors\TranslatableCmsObject::class)
         ) {
             return;
         }
-
 
         if (!$model->hasTranslatableAttributes()) {
             return;
         }
 
-        if (!empty($widget->config->fields) && !$widget->isNested) {
+        if (!empty($widget->fields)) {
             $widget->fields = $this->processFormMLFields($widget->fields, $model);
         }
 
-        if (!empty($widget->config->tabs['fields'])) {
+        if (!empty($widget->tabs['fields'])) {
             $widget->tabs['fields'] = $this->processFormMLFields($widget->tabs['fields'], $model);
         }
 
-        if (!empty($widget->config->secondaryTabs['fields'])) {
+        if (!empty($widget->secondaryTabs['fields'])) {
             $widget->secondaryTabs['fields'] = $this->processFormMLFields($widget->secondaryTabs['fields'], $model);
         }
     }
 
     /**
-     * Helper function to replace standard fields with multi lingual equivalents
+     * processFormMLFields function to replace standard fields with multi-lingual equivalents
      * @param  array $fields
      * @param  Model $model
      * @return array
@@ -152,12 +225,13 @@ class EventRegistry
     protected function processFormMLFields($fields, $model)
     {
         $typesMap = [
-            'markdown'    => 'mlmarkdowneditor',
+            'text' => 'mltext',
+            'textarea' => 'mltextarea',
+            'richeditor' => 'mlricheditor',
+            'markdown' => 'mlmarkdowneditor',
+            'repeater' => 'mlrepeater',
+            'nestedform' => 'mlnestedform',
             'mediafinder' => 'mlmediafinder',
-            'repeater'    => 'mlrepeater',
-            'richeditor'  => 'mlricheditor',
-            'text'        => 'mltext',
-            'textarea'    => 'mltextarea',
         ];
 
         $translatable = array_flip($model->getTranslatableAttributes());
@@ -189,12 +263,12 @@ class EventRegistry
     //
 
     /**
-     * Import messages defined by the theme
+     * importMessagesFromTheme
      */
-    public function importMessagesFromTheme()
+    public function importMessagesFromTheme($themeCode)
     {
         try {
-            (new ThemeScanner)->scanThemeConfigForMessages();
+            (new ThemeScanner)->scanThemeConfigForMessages($themeCode);
         }
         catch (Exception $ex) {}
     }
@@ -204,7 +278,7 @@ class EventRegistry
     //
 
     /**
-     * Set the page context for translation caching.
+     * setMessageContext for translation caching.
      */
     public function setMessageContext($page)
     {
@@ -218,7 +292,7 @@ class EventRegistry
     }
 
     /**
-     * Adds language suffixes to content files.
+     * findTranslatedContentFile adds language suffixes to content files.
      * @return string|null
      */
     public function findTranslatedContentFile($controller, $fileName)
@@ -243,7 +317,7 @@ class EventRegistry
     //
 
     /**
-     * Removes localized content files from templates collection
+     * pruneTranslatedContentTemplates removes localized content files from templates collection
      * @param \October\Rain\Database\Collection $templates
      * @return \October\Rain\Database\Collection
      */
@@ -261,7 +335,7 @@ class EventRegistry
     }
 
     /**
-     * Adds language suffixes to mail view files.
+     * findLocalizedMailViewContent adds language suffixes to mail view files.
      * @param  \October\Rain\Mail\Mailer $mailer
      * @param  \Illuminate\Mail\Message $message
      * @param  string $view
@@ -303,9 +377,8 @@ class EventRegistry
         }
     }
 
-
     /**
-     * Search mail view files based on locale
+     * getLocalizedView searches mail view files based on locale
      * @param  \October\Rain\Mail\Mailer $mailer
      * @param  \Illuminate\Mail\Message $message
      * @param  string $code

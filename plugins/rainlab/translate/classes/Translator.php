@@ -1,14 +1,14 @@
 <?php namespace RainLab\Translate\Classes;
 
 use App;
+use Config;
 use Schema;
 use Session;
 use Request;
-use Config;
 use RainLab\Translate\Models\Locale;
 
 /**
- * Translate class
+ * Translator class
  *
  * @package rainlab\translate
  * @author Alexey Bobkov, Samuel Georges
@@ -59,6 +59,7 @@ class Translator
         }
 
         App::setLocale($locale);
+
         $this->activeLocale = $locale;
 
         if ($remember) {
@@ -121,6 +122,37 @@ class Translator
     //
 
     /**
+     * handleLocaleRoute will check if the route contains a translated locale prefix (/en/)
+     * and return that locale to be registered with the router.
+     * @return string
+     */
+    public function handleLocaleRoute()
+    {
+        if (Config::get('rainlab.translate::disableLocalePrefixRoutes', false)) {
+            return '';
+        }
+
+        if (App::runningInBackend()) {
+            return '';
+        }
+
+        if (!$this->isConfigured()) {
+            return '';
+        }
+
+        if (!$this->loadLocaleFromRequest()) {
+            return '';
+        }
+
+        $locale = $this->getLocale();
+        if (!$locale) {
+            return '';
+        }
+
+        return $locale;
+    }
+
+    /**
      * Sets the locale based on the first URI segment.
      * @return bool
      */
@@ -178,17 +210,17 @@ class Translator
         }
 
         // If we don't want te default locale to be prefixed
-        // AND the first segment equals the defaultlocale
+        // and the first segment equals the default locale
         if (
-            !$prefixDefaultLocale
-            && isset($segments[0])
-            && $segments[0] == $this->defaultLocale
+            !$prefixDefaultLocale &&
+            isset($segments[0]) &&
+            $segments[0] == $this->defaultLocale
         ) {
-            // remove the first element (which is the default locale)
+            // Remove the default locale
             array_shift($segments);
         };
 
-        return implode('/', $segments);
+        return htmlspecialchars(implode('/', $segments), ENT_QUOTES, 'UTF-8');
     }
 
     //

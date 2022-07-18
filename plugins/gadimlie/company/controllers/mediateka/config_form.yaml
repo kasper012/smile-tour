@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Mediateka
+
+# Model Form Field configuration
+form: $/gadimlie/company/models/mediateka/fields.yaml
+
+# Model Class name
+modelClass: Gadimlie\Company\Models\Mediateka
+
+# Default redirect location
+defaultRedirect: gadimlie/company/mediateka
+
+# Create page
+create:
+    title: Create Mediateka
+    redirect: gadimlie/company/mediateka/update/:id
+    redirectClose: gadimlie/company/mediateka
+
+# Update page
+update:
+    title: Edit Mediateka
+    redirect: gadimlie/company/mediateka
+    redirectClose: gadimlie/company/mediateka
+
+# Preview page
+preview:
+    title: Preview Mediateka

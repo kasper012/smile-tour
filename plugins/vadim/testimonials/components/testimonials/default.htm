@@ -1,0 +1,25 @@
+<form class="row from_main" action="#" method="post" data-request="onSave" id="phpcontactform" data-request-flash> 
+    <div class="form-group col-12">   
+        <input type="text" class="form-control" id="name" name="name" placeholder="{{'Ad'|_}}*"> 
+    </div>
+    <div class="form-group col-12">   
+        <input type="text" class="form-control" id="surname" name="surname" placeholder="{{'Soyad'|_}}"> 
+    </div>
+    <div class="form-group col-12">
+        <textarea class="form-control" id="message" name="testimonial" placeholder="{{'Rəy'|_}}*"></textarea>
+    </div>
+    <div class="form-group col-12">
+        <button class="find_btn btn" id="js-contact-btn" type="submit">{{'Göndər'|_}}</button> 
+    </div>
+</form> 
+
+
+{% flash %}
+    <p
+        data-control="flash-message"
+        class="{{ type }}"
+        data-interval="5">
+        {{ message }}
+    </p>
+{% endflash %}
+

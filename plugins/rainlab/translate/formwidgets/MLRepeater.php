@@ -7,8 +7,7 @@ use ApplicationException;
 use Request;
 
 /**
- * ML Repeater
- * Renders a multi-lingual repeater field.
+ * MLRepeater Renders a multi-lingual repeater field.
  *
  * @package rainlab\translate
  * @author Alexey Bobkov, Samuel Georges
@@ -48,6 +47,9 @@ class MLRepeater extends Repeater
         return $this->makePartial('mlrepeater');
     }
 
+    /**
+     * prepareVars
+     */
     public function prepareVars()
     {
         parent::prepareVars();
@@ -55,7 +57,7 @@ class MLRepeater extends Repeater
     }
 
     /**
-     * Returns an array of translated values for this field
+     * getSaveValue returns an array of translated values for this field
      * @return array
      */
     public function getSaveValue($value)
@@ -96,12 +98,27 @@ class MLRepeater extends Repeater
         return '/modules/backend/formwidgets/repeater/assets';
     }
 
+    /**
+     * onAddItem
+     */
     public function onAddItem()
     {
         $this->actAsParent();
         return parent::onAddItem();
     }
 
+    /**
+     * onDuplicateItem
+     */
+    public function onDuplicateItem()
+    {
+        $this->actAsParent();
+        return parent::onDuplicateItem();
+    }
+
+    /**
+     * onSwitchItemLocale
+     */
     public function onSwitchItemLocale()
     {
         if (!$locale = post('_repeater_locale')) {
@@ -138,24 +155,29 @@ class MLRepeater extends Repeater
     }
 
     /**
-     * Ensure that the current locale data is processed by the repeater instead of the original non-translated data
+     * reprocessLocaleItems ensures that the current locale data is processed by
+     * the repeater instead of the original non-translated data
      * @return void
      */
     protected function reprocessLocaleItems($data)
     {
         $this->formWidgets = [];
+
         $this->formField->value = $data;
 
         $key = implode('.', HtmlHelper::nameToArray($this->formField->getName()));
+
         $requestData = Request::all();
+
         array_set($requestData, $key, $data);
-        Request::merge($requestData);
+
+        $this->mergeWithPost($requestData);
 
         $this->processItems();
     }
 
     /**
-     * Gets the active values from the selected locale.
+     * getPrimarySaveDataAsArray gets the active values from the selected locale.
      * @return array
      */
     protected function getPrimarySaveDataAsArray()
@@ -166,7 +188,7 @@ class MLRepeater extends Repeater
     }
 
     /**
-     * Returns the stored locale data as an array.
+     * getLocaleSaveDataAsArray returns the stored locale data as an array.
      * @return array
      */
     protected function getLocaleSaveDataAsArray($locale)
@@ -181,16 +203,14 @@ class MLRepeater extends Repeater
     }
 
     /**
-     * Since the locker does always contain the latest values, this method
+     * rewritePostValues since the locker does always contain the latest values, this method
      * will take the save data from the repeater and merge it in to the
      * locker based on which ever locale is selected using an item map
      * @return void
      */
     protected function rewritePostValues()
     {
-        /*
-         * Get the selected locale at postback
-         */
+        // Get the selected locale at postback
         $data = post('RLTranslateRepeaterLocale');
         $fieldName = implode('.', HtmlHelper::nameToArray($this->fieldName));
         $locale = array_get($data, $fieldName);
@@ -199,14 +219,21 @@ class MLRepeater extends Repeater
             return;
         }
 
-        /*
-         * Splice the save data in to the locker data for selected locale
-         */
+        // Splice the save data in to the locker data for selected locale
         $data = $this->getPrimarySaveDataAsArray();
         $fieldName = 'RLTranslate.'.$locale.'.'.implode('.', HtmlHelper::nameToArray($this->fieldName));
 
         $requestData = Request::all();
         array_set($requestData, $fieldName, json_encode($data));
-        Request::merge($requestData);
+        $this->mergeWithPost($requestData);
+    }
+
+    /**
+     * mergeWithPost will apply postback values globally
+     */
+    protected function mergeWithPost(array $values)
+    {
+        Request::merge($values);
+        $_POST = array_merge($_POST, $values);
     }
 }

@@ -4,8 +4,7 @@ use Backend\FormWidgets\MarkdownEditor;
 use RainLab\Translate\Models\Locale;
 
 /**
- * ML Markdown Editor
- * Renders a multi-lingual Markdown editor.
+ * MLMarkdownEditor renders a multi-lingual Markdown editor.
  *
  * @package rainlab\translate
  * @author Alexey Bobkov, Samuel Georges
@@ -19,8 +18,20 @@ class MLMarkdownEditor extends MarkdownEditor
      */
     protected $defaultAlias = 'mlmarkdowneditor';
 
+    /**
+     * @var string originalAssetPath
+     */
     public $originalAssetPath;
+
+    /**
+     * @var string originalViewPath
+     */
     public $originalViewPath;
+
+    /**
+     * @var bool legacyMode disables the Vue integration
+     */
+    public $legacyMode = true;
 
     /**
      * {@inheritDoc}
@@ -55,7 +66,7 @@ class MLMarkdownEditor extends MarkdownEditor
     }
 
     /**
-     * Returns an array of translated values for this field
+     * getSaveValue returns an array of translated values for this field
      * @return array
      */
     public function getSaveValue($value)
@@ -93,5 +104,4 @@ class MLMarkdownEditor extends MarkdownEditor
     {
         return '/modules/backend/formwidgets/markdowneditor/assets';
     }
-
 }
