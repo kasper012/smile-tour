@@ -8,7 +8,7 @@ class Company extends Model
 {
     public $implement = [
       'System.Behaviors.SettingsModel',
-      // 'RainLab.Translate.Behaviors.TranslatableModel'
+       'RainLab.Translate.Behaviors.TranslatableModel'
     ];
 
 

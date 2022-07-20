@@ -1,11 +1,11 @@
 <form method="post" data-request="{{ __SELF__ }}::onSend"  data-request-success="formSuccess(this, context, data, textStatus, jqXHR)" data-request-validate data-request-flash >
 
    <input type="hidden" name="url" value="{{ ''| page }}">
-   <input type="text" name="name" placeholder="Name and surname">
-   <input type="tel" name="phone" placeholder="Phone">
-   <input type="text" name="email" placeholder="Email">
-   <textarea name="msg" placeholder="Message"></textarea>
-   <button type="submit" class="btn btn-success px-3">Send </button>
+   <input type="text" name="name" placeholder="{{ 'Name and surname' |_ }}">
+   <input type="tel" name="phone" placeholder="{{ 'Whatsapp number' |_ }}">
+   <input type="text" name="email" placeholder="{{ 'Email' |_ }}">
+   <textarea name="msg" placeholder="{{ 'Message' |_ }}"></textarea>
+   <button type="submit" class="btn btn-success px-3">{{ 'Send' |_ }}</button>
 </form>
 
 <script>

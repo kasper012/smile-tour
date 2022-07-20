@@ -1,11 +1,23 @@
 title = "Demonstration"
 url = "/"
 layout = "default"
+is_hidden = 0
+
 [tours]
 
 [TestimonialsForm]
 thanksMessage = "Rəyinizə görə təşəkkür edirik!"
+
 [TestimonialsList]
+
+[Sliders]
+
+[extendedLocalePicker]
+
+[alternateHrefLangElements]
+
+[localePicker]
+forceUrl = 0
 ==
 {% put extras %}
 {% framework extras %}
@@ -19,7 +31,9 @@ thanksMessage = "Rəyinizə görə təşəkkür edirik!"
         <div class="hero-slider__slide" style="background-image: url('{{ slider.image | media }}');">
           <h1>{{ slider.title }}</h1>
           <h4><span class="left-wing"></span>{{ slider.suptitle }}<span class="right-wing"></span></h4>
+          {% if slider.btn_url_1 and slider.btn_txt_1 %}
           <a href="{{ slider.btn_url_1 }}" class="btn btn--with-icon"><i class="fa fa-2x {{ slider.icon }}" aria-hidden="true"></i><abbr title=""></abbr>{{ slider.btn_txt_1 }}</a>
+          {% endif %}
         </div>
       </div>
       {% endfor %}
@@ -97,7 +111,7 @@ thanksMessage = "Rəyinizə görə təşəkkür edirik!"
 <section id="oneday" class="trending pb-6 pt-5" >
     <div class="container">
         <div class="section-title text-center mb-5 pb-2 w-50 mx-auto">
-            <h2 class="m-0"><span>Day</span> Trips</h2>
+            <h2 class="m-0"><span>{{ 'Day</span> Trips' |_ }}</h2>
             <p class="mb-0">{{ company.daytrip_about | raw }}.</p>
         </div>
         <div class="trend-box">
@@ -124,7 +138,7 @@ thanksMessage = "Rəyinizə görə təşəkkür edirik!"
                                 <div class="trend-last d-flex align-items-center justify-content-between">
                                     <p class="mb-0 white"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ tour.starts | date("H:i") }} - {{ tour.finish | date("H:i") }}</p>
                                     <div class="trend-price">
-                                        <p class="price white mb-0">From <span>${{ tour.price }}</span></p>
+                                        <p class="price white mb-0"><span>${{ tour.price }}</span></p>
                                     </div>
                                 </div>
                             </div>
@@ -146,7 +160,7 @@ thanksMessage = "Rəyinizə görə təşəkkür edirik!"
             <div class="row d-flex align-items-center">
                 <div class="col-lg-4 col-md-6 p-1" data-aos="fade-up">
                     <div class="desti-title text-center">
-                        <h1 class="white">Packages </h1> <h2 class="white">Trips for several days </h2>
+                        <h1 class="white">{{ 'Packages' |_ }} </h1> <h2 class="white">{{ 'Trips for several days' |_ }} </h2>
                         <p class="white mb-0">{{ company.severalday_about | raw }}  </p>
                     </div>
                 </div>
@@ -164,7 +178,7 @@ thanksMessage = "Rəyinizə görə təşəkkür edirik!"
 
 
                             <a href="{{ 'tour-single' | page({id:tour.id}) }}" class="nir-btn" tabindex="0">
-                                <span class="white">Book Now</span>
+                                <span class="white">{{ 'Book Now' |_ }}</span>
                                 <i class="fa fa-arrow-right white pl-1"></i>
                             </a>
 
@@ -181,7 +195,7 @@ thanksMessage = "Rəyinizə görə təşəkkür edirik!"
                         </div>
                         <div class="desti-overlay d-flex justify-content-center align-items-center">
                             <a href="{{ 'tour-single' | page({id:tour.id}) }}" class="nir-btn">
-                                <span class="white">Book Now</span>
+                                <span class="white">{{ 'Book Now' |_ }}</span>
                                 <i class="fa fa-arrow-right white pl-1"></i>
                             </a>
                         </div>
@@ -211,7 +225,7 @@ thanksMessage = "Rəyinizə görə təşəkkür edirik!"
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" data-aos="fade-down">
                     <div class="contact-info">
-                        <h3 class="">CONTACT INFO </h3>
+                        <h3 class="">{{ 'CONTACT INFO' |_ }} </h3>
 
                         <div class="info-item d-flex align-items-center bg-white mb-3">
                             <div class="info-icon">
@@ -255,4 +269,3 @@ thanksMessage = "Rəyinizə görə təşəkkür edirik!"
         </div>
     </div>
 </section>
-

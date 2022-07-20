@@ -1,9 +1,20 @@
-
 [Sliders]
+
 [Company]
 
-==
+[Company Company2]
 
+[Sliders Sliders2]
+
+[extendedLocalePicker]
+
+[alternateHrefLangElements]
+
+[localePicker]
+forceUrl = 0
+
+[tours]
+==
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zxx">
 
@@ -12,7 +23,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Smile Azerbaijan Tour - Travel and tours all over Azerbaijan</title>
 
-    <link rel="shortcut icon" type="image/x-icon" href="{{ 'assets/images/favicon.png' | theme }}">
+    <link rel="shortcut icon" type="image/x-icon" href="https://smile-tour.az/themes/smiletour/assets/images/logo-removed-bg.png">
 
     <link href="{{ 'assets/css/bootstrap.min.css' | theme }}" rel="stylesheet" type="text/css">
 
@@ -39,6 +50,7 @@
         <div id="status"></div>
     </div>
 
+    <!-- header comment start -->
 
     <header class="main_header_area headerstye-1">
 
@@ -57,19 +69,18 @@
                         <div class="navbar-collapse1 d-flex align-items-center" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav" id="responsive-menu">
                                 <li class="dropdown submenu active">
-                                    <a href="{{ 'home' | page }}" >Home </a>
+                                    <a href="{{ 'home' | page }}" >{{ 'Home' |_}} </a>
 
                                 </li>
-                                <li><a href="{{ 'home' | page }}#about-us">About Us</a></li>                                
-                                <li><a href="{{ 'home' | page }}#oneday">Day Trips</a></li>
-                                <li><a href="{{ 'home' | page }}#packages">Packages</a></li>
-                                <li><a href="{{ 'home' | page }}#contacts">Contact Us</a></li>
+                                <li><a href="{{ 'home' | page }}#about-us">{{ 'About Us' |_ }}</a></li>                                
+                                <li><a href="{{ 'home' | page }}#oneday">{{ 'Day Trips' |_ }}</a></li>
+                                <li><a href="{{ 'home' | page }}#packages">{{ 'Packages' |_ }}</a></li>
+                                <li><a href="{{ 'home' | page }}#contacts">{{ 'Contact Us' |_ }}</a></li>
                             </ul>
 
                         </div>
                         <div class="register-login">
-                            <a href="index.html#" class="mr-2" data-toggle="modal" data-target="#register"><i
-                                    class="icon-user mr-1"></i> AZ</a>
+                  {% component 'extendedLocalePicker' %}
 
                         </div>
                         <div id="slicknav-mobile"></div>
@@ -79,6 +90,7 @@
         </div>
 
     </header>
+
 
     {% page %}
 
@@ -92,14 +104,14 @@
                             <img src="{{ 'assets/images/logo-removed-bg.png' | theme }}" alt="">
 
                             <ul>
-                                <li><strong>Phone:</strong> 
+                                <li><strong>{{ 'Phone' |_}} :</strong> 
                                     {% for phone in company.phone %}
                                         <a href="tel: {{ phone.phone }}" class="text-dark">{{ phone.phone }}</a>
                                         <br>
                                     {% endfor %}
                                 </li>
-                                <li><strong>Address:</strong> {{ company.address }}</li>
-                                <li><strong>Email:</strong> 
+                                <li><strong>{{ 'Address' |_ }}:</strong> {{ company.address }}</li>
+                                <li><strong>{{ 'Email' |_ }}:</strong> 
                                     {% for email in company.email %}
                                     <p class="m-0">
                                         <a href="mailto:{{ email.email }}" class="text-dark" >{{ email.email }}</a>
@@ -112,25 +124,24 @@
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 mb-4">
                         <div class="footer-links">
-                            <h4 class="white">Company</h4>
+                            <h4 class="white">{{ 'Company' |_ }}</h4>
                             <ul>
-                                <li><a href="{{ 'home' | page }}#about-us">About Us</a></li>                                
-                                <li><a href="{{ 'home' | page }}#oneday">Day Trips</a></li>
-                                <li><a href="{{ 'home' | page }}#packages">Packages</a></li>
-                                <li><a href="{{ 'home' | page }}#contacts">Contact Us</a></li>
+                                <li><a href="{{ 'home' | page }}#about-us"> {{ 'About Us' |_ }}</a></li>                                
+                                <li><a href="{{ 'home' | page }}#oneday">{{ 'Day Trips' |_ }}</a></li>
+                                <li><a href="{{ 'home' | page }}#packages">{{ 'Packages' |_ }}</a></li>
+                                <li><a href="{{ 'home' | page }}#contacts">{{ 'Contact Us' |_ }}</a></li>
                             </ul>
                         </div>
                     </div>
 
                     <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 mb-4">
                         <div class="footer-links">
-                            <h4 class="white">Newsletter</h4>
-                            <p>Want to be notified when we launch a new template or an udpate. Just sign up and we'll
-                                send you a notification by email.</p>
+                            <h4 class="white">{{ 'Newsletter' |_ }}</h4>
+
                             <div class="newsletter-form">
                                 <form>
-                                    <input type="email" placeholder="Enter your email">
-                                    <input type="submit" class="nir-btn mt-2 w-100" value="Subscribe">
+                                    <input type="email" placeholder="{{ 'Enter your email' |_ }}">
+                                    <input type="submit" class="nir-btn mt-2 w-100" value="{{ 'Subscribe' |_ }}">
                                 </form>
                             </div>
                         </div>
@@ -143,7 +154,7 @@
                 <div class="footer-pay d-md-flex align-items-center justify-content-between pt-2 pb-2">
                     <div class="footer-payment-nav">
                         <ul class="d-md-flex align-items-center">
-                            <li class="mr-2">We Support:</li>
+                            <li class="mr-2">{{ 'We Support' |_ }}:</li>
                             <li class="mr-2"><i class="fab fa-cc-mastercard"></i></li>
                             <li class="mr-2"><i class="fab fa-cc-visa"></i></li>
 
@@ -157,7 +168,7 @@
             <div class="container">
                 <div class="copyright-inner d-md-flex align-items-center justify-content-between">
                     <div class="copyright-text">
-                        <p class="m-0 white">{{ now | date('Y') }}. Smile Azerbaijan Tour. All rights reserved.</p>
+                        <p class="m-0 white">{{ now | date('Y') }}. Smile Azerbaijan Tour. {{ 'All rights reserved.' |_ }}</p>
                     </div>
                     <div class="social-links">
                         <ul>
@@ -177,63 +188,6 @@
     </div>
 
 
-    <div class="modal fade" id="register" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header bordernone p-0">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body p-0">
-                    <div class="login-content p-4 text-center">
-                        <div class="login-title section-border">
-                            <h3 class="pink mb-1">Register</h3>
-                            <p>Access thousands of online classes in design, business, and more!</p>
-                        </div>
-                        <div class="login-form text-center">
-                            <form>
-                                <div class="form-group">
-                                    <input type="text" placeholder="Enter Full Name">
-                                </div>
-                                <div class="form-group">
-                                    <input type="email" placeholder="Enter email address">
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" placeholder="Enter password">
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" placeholder="Confirm password">
-                                </div>
-                            </form>
-                            <div class="form-btn">
-                                <a href="index.html#" class="nir-btn">Register</a>
-                            </div>
-                            <div class="form-group mb-0 form-checkbox mt-3">
-                                <input type="checkbox"> By clicking this, you are agree to to<a href="index.html#"
-                                    class=""> our terms of use</a> and <a href="index.html#" class="">privacy policy</a>
-                                including the use of cookies
-                            </div>
-                        </div>
-                        <div class="login-social border-t mt-3 pt-2 mb-3">
-                            <p class="mb-2">OR continue with</p>
-                            <a href="index.html#" class="btn-facebook"><i class="fab fa-facebook"
-                                    aria-hidden="true"></i> Facebook</a>
-                            <a href="index.html#" class="btn-twitter"><i class="fab fa-twitter" aria-hidden="true"></i>
-                                Twitter</a>
-                            <a href="index.html#" class="btn-google"><i class="fab fa-google" aria-hidden="true"></i>
-                                Google</a>
-                        </div>
-                        <div class="sign-up">
-                            <p class="m-0">Already have an account? <a href="login.html" class="pink">Login</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
 
     <script>
         $('#myModal').on('shown.bs.modal', function () {
@@ -245,7 +199,7 @@
 <script src="{{  'assets/js/bootstrap.min.js' | theme }}"></script>
 <script src="{{  'assets/js/particles.js' | theme }}"></script>
 <script src="{{  'assets/js/particlerun.js' | theme }}"></script>
-<!-- <script src="{{  'assets/js/plugin.js' | theme }}"></script> -->
+<script src="{{  'assets/js/plugin.js' | theme }}"></script> 
 <script src="{{  'assets/js/main.js' | theme }}"></script>
 <script src="{{  'assets/js/custom-swiper.js' | theme }}"></script>
 <script src="{{  'assets/js/custom-nav.js' | theme }}"></script>
@@ -262,10 +216,10 @@
 <script>
     $(document).ready(() => {
   $('.hero-slider__wrapper').slick({
-    prevArrow: '.hero-slider__button--prev',
-    nextArrow: '.hero-slider__button--next',
+
     autoplay: true,
-    autoplaySpeed: 2000,
+    arrows: false,
+    autoplaySpeed: 1500,
   })
 })
 </script>
@@ -273,6 +227,7 @@
 
  $('.slider-for').slick({
   slidesToShow: 1,
+  autoplay: true,
   slidesToScroll: 1,
   arrows: false,
   fade: true,

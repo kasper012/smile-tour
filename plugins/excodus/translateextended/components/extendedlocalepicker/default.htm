@@ -1,3 +1,6 @@
-{% for code, name in locales %}
-    <a href="{{''|app}}{{ '/' ~ code ~ localeLinks[code] }}">{{ name }}</a>
-{% endfor %}
+                            {% for code, name in locales %}
+                             {% if activeLocale != code %}
+                                <a href="{{''|app}}{{ '/' ~ code ~ localeLinks[code] }}" class="mr-2" data-toggle="modal" ><i
+                                    class="mr-1"></i>{{ code | upper }}</a>
+                                {% endif %}
+                            {% endfor %}

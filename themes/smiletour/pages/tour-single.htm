@@ -1,6 +1,8 @@
-layout="default"
-title="Tour"
-url="/tour/:id"
+title = "Tour"
+url = "/tour/:id"
+layout = "default"
+is_hidden = 0
+
 [tourContactForm]
 ==
 <?php
@@ -12,6 +14,15 @@ public function onStart() {
 }
 ?>
 ==
+<div class="d-none">
+       <input type="hidden" name="url" value="{{ ''| page }}">
+   <input type="text" name="name" placeholder="{{ 'Name and surname' |_ }}">
+   <input type="tel" name="phone" placeholder="{{ 'Whatsapp number' |_ }}">
+   <input type="text" name="email" placeholder="{{ 'Email' |_ }}">
+   <textarea name="msg" placeholder="{{ 'Message' |_ }}"></textarea>
+   <button type="submit" class="btn btn-success px-3">{{ 'Send' |_ }}</button>
+</div>
+
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="1" role="dialog" aria-labelledby="exampleModalCenterTitle"  data-backdrop="false" aria-hidden="true" style="z-index: 100000000">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -19,14 +30,14 @@ public function onStart() {
         <div class="modal-header">
         <h3 class="modal-title" id="exampleModalLongTitle">{{ tour.title }}</h3>
 
-        <button type="button" class="btn btn-secondary px-3" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary px-3" data-dismiss="modal">{{ 'Close' |_ }}</button>
 
         </div>
         <div class="modal-body">
 
             <div class="col-12">
                 <div id="contact-form1" class="contact-form">
-                    <h5 class="">Please, provide data about you. Our manager will contact you maximum in 1 hour</h5>
+                    <h5 class="">{{ 'Please provide your contact details. The manager will contact you within an hour.' |_ }}</h5>
                     {% component 'tourContactForm' %}
 
                     <div id="contactform-error-msg"></div>
@@ -46,7 +57,7 @@ public function onStart() {
                 <h2 class="mb-5">{{ tour.title }}</h2>
                 <nav aria-label="breadcrumb">
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ 'home' | page }}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ 'home' | page }}">{{ 'Home' |_ }}</a></li>
 
                     </ul>
                 </nav>
@@ -96,49 +107,46 @@ public function onStart() {
                         <table>
                             <tbody>
                                 <tr>
-                                    <td><i class="fa fa-clock-o pink mr-1" aria-hidden="true"></i> Duration: {{ tour.duration }}</td>
-                                    <td><i class="fa fa-user-friends pink mr-1" aria-hidden="true"></i> Max people: {{ tour.max_people }}</td>
+                                    <td><i class="fa fa-clock-o pink mr-1" aria-hidden="true"></i> {{ 'Duration' |_ }}: {{ tour.duration }}</td>
+                                    <td><i class="fa fa-user-friends pink mr-1" aria-hidden="true"></i> {{ 'Max people' |_}}: {{ tour.max_people }}</td>
                                 </tr>
                                 <tr>
-                                    <td><i class="fas fa-child pink mr-1" aria-hidden="true"></i> Minimal age: {{ tour.min_age }}</td>
-                                    <td><i class="fa fa-language pink mr-1" aria-hidden="true"></i> Language: {{ tour.language }}</td>
+                                    <td><i class="fas fa-child pink mr-1" aria-hidden="true"></i> {{ 'Minimal age' |_ }}: {{ tour.min_age }}</td>
+                                    <td><i class="fa fa-language pink mr-1" aria-hidden="true"></i> {{ 'Language' |_ }}: {{ tour.language }}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <div class="description mb-2">
-                        <h4>Description</h4>
-                        {{ tour.description | raw }}
-                    </div>
+
                     <div class="description mb-2">
                         <div class="row">
                             <div class="col-lg-6 col-md-6 mb-2 pr-2">
                                 <div class="desc-box">
-                                    <h5 class="mb-1">Tour start at:</h5>
+                                    <h5 class="mb-1">{{ 'Tour start at' |_ }}:</h5>
                                     <p class="mb-0">{{ tour.starts }}</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 mb-2 pl-2">
                                 <div class="desc-box">
-                                    <h5 class="mb-1">Tour ends at:</h5>
+                                    <h5 class="mb-1">{{ 'Tour ends at' |_ }}:</h5>
                                     <p class="mb-0">{{ tour.finish }}</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 mb-2 pr-2">
                                 <div class="desc-box">
-                                    <h5 class="mb-1">Meeting point:</h5>
+                                    <h5 class="mb-1">{{ 'Meeting point' |_ }}:</h5>
                                     <p class="mb-0">{{ tour.meeting_point }}</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 mb-2 pl-2">
                                 <div class="desc-box">
-                                    <h5 class="mb-1">Pick up</h5>
+                                    <h5 class="mb-1">{{ 'Pick up' |_ }}</h5>
                                     <p class="mb-0">{{ tour.pickup }}</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 mb-2 pr-2">
                                 <div class="desc-box">
-                                    <h5 class="mb-1">Price Includes</h5>
+                                    <h5 class="mb-1">{{ 'Price includes' |_}} </h5>
                                     <ul>
                                         {% for included in tour.included %}
                                         <li><i class="fa fa-check pink mr-1"></i>{{ included.point }}</li>
@@ -148,7 +156,7 @@ public function onStart() {
                             </div>
                             <div class="col-lg-6 col-md-6 mb-2 pl-2">
                                 <div class="desc-box">
-                                    <h5 class="mb-1">Prince not included</h5>
+                                    <h5 class="mb-1">{{ 'Price does not include' |_ }}</h5>
                                     <ul>
                                         {% for excluded in tour.excluded %}
                                         <li><i class="fa fa-close pink mr-1"></i>{{ excluded.point }}</li>
@@ -159,11 +167,11 @@ public function onStart() {
                         </div>
                     </div>
                     <div class="description mb-2">
-                        <h4>Description</h4>
+                        <h4>{{ 'Description' |_ }}</h4>
                         {{ tour.description | raw }}
                     </div>
                     <div class="accrodion-grp faq-accrodion mb-4" id="iternary" data-grp-name="faq-accrodion">
-                        <h4>Iternary</h4>
+                        <h4>{{ 'Iternary' |_ }}</h4>
                         {% for iternary in tour.iternary %}
                         <div class="accrodion {% if loop.first %}active{% endif %}">
                             <div class="accrodion-title">
@@ -186,11 +194,11 @@ public function onStart() {
                     <div class="list-sidebar">
                         <div class="sidebar-item">
                             <form class="form-content">
-                                <h4 class="title white text-center">MAKE A BOOKING</h4>
+                                <h4 class="title white text-center">{{ 'JOIN TOUR' |_ }}</h4>
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="form-group">
-                                            <span class="white">Current price is</span>
+                                            <span class="white">{{ 'Price' |_ }}</span>
                                             <h3 class="choosen-date white mb-0"><i class="fa fa-dollar"></i> {{ tour.price }} </h3>
                                         </div>
                                     </div>
@@ -199,7 +207,7 @@ public function onStart() {
                                     <div class="col-lg-12">
                                         <!-- Button trigger modal -->
                                         <button type="button" class="nir-btn w-100" data-toggle="modal" data-target="#exampleModalCenter">
-                                            Instant Book
+                                            {{ 'Request booking'|_ }}
                                         </button>
 
 
@@ -213,7 +221,7 @@ public function onStart() {
                         <div class="sidebar-item">
                             <div class="sidebar-contact text-center bg-navy">
                                 <i class=" fab fa-whatsapp white" style="font-size: 48px"></i>
-                                <h3 class="white"><span>Book</span> by WhatsApp</h3>
+                                <h3 class="white"><span>{{ 'Book</span> by WhatsApp' |_ }}</h3>
                                 <a href="https://wa.me/{{ company.wp }}" class="phone white">{{ company.wp }}</a>
                             </div>
                         </div>
@@ -223,5 +231,3 @@ public function onStart() {
         </div>
     </div>
 </section>
-
-

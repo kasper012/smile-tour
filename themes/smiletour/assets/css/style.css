@@ -2140,7 +2140,7 @@ header #navbar {
 }
 
 .main_header_area.headerstye-1 .header_menu .register-login a {
-    color: #fff
+    color: #777
 }
 
 .main_header_area.headerstye-1 .header_menu.fixed-top .navbar-default {
@@ -2918,7 +2918,7 @@ nav.navbar.navbar-default.navbar-sticky-in .logo-black {
     }
 
     .headerstye-1 .slicknav_btn.slicknav_open:before, .headerstye-1 .slicknav_btn.slicknav_collapsed:before {
-        color: #fff !important
+        color: #000 !important
     }
 
     .dropdown-toggle::after, .search-wrapper, .header_menu .navbar.navbar-default a.cart-icon, .register-login {
@@ -9216,7 +9216,7 @@ ul.sidebar-tags li a:hover {
     height: 50px;
     transform: translateY(-50%);
     width: 50px;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
@@ -9398,3 +9398,9 @@ ul.sidebar-tags li a:hover {
 }
 
 /* Tour gallery slider */
+hero-slider__button hero-slider__button--next {
+    display: none !important;
+}
+.hero-slider__button hero-slider__button--prev {
+    display: none !important;
+}
