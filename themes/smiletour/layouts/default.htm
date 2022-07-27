@@ -42,6 +42,13 @@ forceUrl = 0
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.5.0/lightgallery.es5.min.js">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.5.0/css/lightgallery-bundle.min.css">
+    <link rel="stylesheet" href="{{ 'assets/css/mobile-nav.css' | theme  }}" type="text/css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Edu+VIC+WA+NT+Beginner:wght@500&family=Montserrat&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1.0, user-scalable=no">
 </head>
 
 <body style="overflow-x: hidden !important">
@@ -60,7 +67,7 @@ forceUrl = 0
                     <div class="navbar-flex d-flex align-items-center justify-content-between w-100 pb-2 pt-2">
 
                         <div class="navbar-header">
-                            <a class="navbar-brand" href="/">
+                            <a class="navbar-brand" href="{{ 'home' | page }}">
                                 <img src="{{ 'assets/images/logo-removed-bg.png' | theme }}" style="max-width: 100px" alt="image">
                                 <img src="{{ 'assets/images/logo-removed-bg.png' | theme }}" style="max-width: 100px" alt="image">
                             </a>
@@ -68,27 +75,52 @@ forceUrl = 0
 
                         <div class="navbar-collapse1 d-flex align-items-center" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav" id="responsive-menu">
-                                <li class="dropdown submenu active">
-                                    <a href="{{ 'home' | page }}" >{{ 'Home' |_}} </a>
+                                <li class="dropdown submenu">
+                                    <a href="{{ 'home' | page }}" class="{% if this.page.id == 'home' %}home-menu-link{% endif %}">{{ 'Home' |_}}</a>
 
                                 </li>
-                                <li><a href="{{ 'home' | page }}#about-us">{{ 'About Us' |_ }}</a></li>                                
-                                <li><a href="{{ 'home' | page }}#oneday">{{ 'Day Trips' |_ }}</a></li>
-                                <li><a href="{{ 'home' | page }}#packages">{{ 'Packages' |_ }}</a></li>
-                                <li><a href="{{ 'home' | page }}#contacts">{{ 'Contact Us' |_ }}</a></li>
+                                <li><a href="{{ 'home' | page }}#about-us" class="{% if this.page.id == 'home' %}home-menu-link{% endif %}">{{ 'About Us' |_ }}</a></li>                                
+                                <li><a href="{{ 'home' | page }}#oneday" class="{% if this.page.id == 'home' %}home-menu-link{% endif %}">{{ 'Day Trips' |_ }}</a></li>
+                                <li><a href="{{ 'home' | page }}#packages" class="{% if this.page.id == 'home' %}home-menu-link{% endif %}">{{ 'Packages' |_ }}</a></li>
+                                <li><a href="{{ 'home' | page }}#contacts" class="{% if this.page.id == 'home' %}home-menu-link{% endif %}">{{ 'Contact Us' |_ }}</a></li>
                             </ul>
 
                         </div>
-                        <div class="register-login">
+                        <div class="register-login {% if this.page.id == 'home' %}home-menu-lang  {% endif %}">
                   {% component 'extendedLocalePicker' %}
 
                         </div>
                         <div id="slicknav-mobile"></div>
                     </div>
+    <!-- Mobile nav -->
+<input type="checkbox" id="toggle" class="input-toggler">   
+<label for="toggle" class="menu-toggler">
+    <span class="menu-toggler-line"></span>
+    <span class="menu-toggler-line"></span>
+    <span class="menu-toggler-line"></span>
+</label>
+
+
+<aside class="sidebar">
+<ul class="menu">
+  <li><a href="{{ 'home' | page }}"  class="menu-link">{{ 'Home' |_}} </a></li>
+  <br/>
+                                <li><a href="{{ 'home' | page }}#about-us" class="menu-link">{{ 'About Us' |_ }}</a></li>                                
+  <br/>
+                                <li><a href="{{ 'home' | page }}#oneday" class="menu-link">{{ 'Day Trips' |_ }}</a></li>
+  <br/>
+                                <li><a href="{{ 'home' | page }}#packages" class="menu-link">{{ 'Packages' |_ }}</a></li>
+  <br/>
+                                <li><a href="{{ 'home' | page }}#contacts" class="menu-link">{{ 'Contact Us' |_ }}</a></li>
+</ul>
+</aside>
+    <!-- End mobile nav -->
                 </div>
             </nav>
         </div>
+    
 
+    
     </header>
 
 
@@ -245,7 +277,10 @@ $('.slider-nav').slick({
 });
 			
 </script>
-
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
 </body>
 
 </html>

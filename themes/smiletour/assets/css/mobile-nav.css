@@ -1,0 +1,43 @@
+*{box-sizing: border-box;}
+body, html{width: 100%; height: 100%;}
+body{margin:0; padding:0; font-family:sans-serif;}
+legend, label, input, ul, li{margin: 0; padding: 0;}
+ul,li{list-style: none;}
+a{ text-decoration: none;}
+
+@media (min-width: 768px) {
+    .menu-toggler {
+         display: none !important;       
+    }
+}
+.input-toggler{ display: none;}
+.menu-toggler{position: absolute; right: 0px; top: 0px; width:50px; height: 90px; background: rgba(0,0,0,0); z-index: 100; display: flex; justify-content:center; align-items:center; flex-direction:column; cursor: pointer;}
+
+.menu-toggler-line{width: 60%; height:3px; background: black; margin: 0 0 6px 0px; position: relative; transition: all .40s ease-out;}
+
+.input-toggler:checked ~ .menu-toggler .menu-toggler-line {top: 5px; translateY:100px;  transform:rotate(45deg); background: white}
+
+.input-toggler:checked ~ .menu-toggler .menu-toggler-line:nth-child(2) {display: none;}
+
+.input-toggler:checked ~ .menu-toggler .menu-toggler-line:nth-child(3) {top: -5px; translateY:10; transform:rotate(135deg);}
+
+.nav{ width: 100%; height: 100%; background:rgba(0,0,0, 0.8);}
+.nav ul{ width: 100%;}
+.nav ul li{ width: 100%; text-align: center;}
+.nav ul li a{display: inline-block; font-size: 36px; color: #fff; text-transform: uppercase;}
+
+.sidebar {position: absolute; left: 0px;top: 0; padding-left: 15px; height: 100vh; width: 100%; background:#000; opacity: 0;
+
+display: flex;
+justify-content: center;
+align-items: center;
+
+transform: translateX(-100%);
+
+transition: all .40s ease-out;
+}
+
+.menu-link {color: white; font-size: 10vmin; line-height: 15vmin; -webkit-transition: all .25s ease-out; transition: all .25s ease-out;}
+.menu-link:hover, .menu-link:focus, .menu-link:active {color: Gold;}
+
+.input-toggler:checked ~ .sidebar {transform: translateX(0%); opacity: .90;}

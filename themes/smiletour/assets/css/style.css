@@ -32,7 +32,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
-    font-family: poppins, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     margin: 0 0 16px;
     color: #3f3f3f;
     line-height: 1.4
@@ -2127,8 +2127,7 @@ header #navbar {
 }
 
 .main_header_area.headerstye-1 .header_menu .navbar.navbar-default .nav.navbar-nav li a {
-    /* color: #fff */
-    color: gray;
+ color: #fff
 }
 
 .main_header_area.headerstye-1 .header_menu .navbar.navbar-default .nav.navbar-nav li:hover>a {
@@ -2140,7 +2139,7 @@ header #navbar {
 }
 
 .main_header_area.headerstye-1 .header_menu .register-login a {
-    color: #777
+    color: #fff
 }
 
 .main_header_area.headerstye-1 .header_menu.fixed-top .navbar-default {
@@ -2921,9 +2920,7 @@ nav.navbar.navbar-default.navbar-sticky-in .logo-black {
         color: #000 !important
     }
 
-    .dropdown-toggle::after, .search-wrapper, .header_menu .navbar.navbar-default a.cart-icon, .register-login {
-        display: none !important
-    }
+
 }
 
 .cats-search {
@@ -9403,4 +9400,13 @@ hero-slider__button hero-slider__button--next {
 }
 .hero-slider__button hero-slider__button--prev {
     display: none !important;
+}
+
+.register-login {
+    margin-left: 100px;
+}
+
+
+.home-menu-link, .home-menu-lang a {
+    color: #777 !important;
 }
